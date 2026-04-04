@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathan Manceau — Stage 1</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --docker-dark:   #0d1b2a;
+    --docker-navy:   #0f2a44;
+    --docker-blue:   #0db7ed;
+    --docker-mid:    #1d6fa4;
+    --docker-light:  #e8f6fd;
+    --docker-grey:   #8ab4cc;
+    --docker-border: rgba(13,183,237,0.18);
+    --white:         #ffffff;
+    --placeholder:   rgba(13,183,237,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--docker-dark);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--docker-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--docker-border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none; z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -120px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(13,183,237,0.10) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: rgba(15,42,68,0.85);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid var(--docker-border);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 28px;
+    z-index: 10;
+  }
+
+  .sidebar-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 48px; }
+  .whale-icon { width: 36px; height: 36px; flex-shrink: 0; }
+  .sidebar-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--docker-blue);
+    letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3;
+  }
+
+  .nav-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-grey);
+    text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px;
+  }
+
+  .nav-buttons { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--docker-border);
+    border-radius: 8px;
+    background: rgba(13,183,237,0.04);
+    color: var(--docker-light);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.22s ease;
+    position: relative; overflow: hidden;
+  }
+
+  .nav-btn::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--docker-blue);
+    transform: scaleY(0); transition: transform 0.22s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .nav-btn:hover { background: rgba(13,183,237,0.12); border-color: rgba(13,183,237,0.45); color: var(--white); transform: translateX(4px); }
+  .nav-btn:hover::before { transform: scaleY(1); }
+  .nav-btn.active { background: rgba(13,183,237,0.15); border-color: rgba(13,183,237,0.5); color: var(--white); }
+  .nav-btn.active::before { transform: scaleY(1); }
+  .nav-btn .btn-icon { font-size: 18px; flex-shrink: 0; }
+  .nav-btn .btn-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--docker-blue); margin-left: auto; opacity: 0.7; }
+
+  /* CV */
+  .cv-section { margin-top: auto; padding-top: 28px; border-top: 1px solid var(--docker-border); }
+  .cv-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 14px; }
+  .cv-card { background: rgba(13,183,237,0.07); border: 1px solid rgba(13,183,237,0.3); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .cv-file { display: flex; align-items: center; gap: 10px; }
+  .cv-file-icon { width: 36px; height: 36px; background: rgba(13,183,237,0.15); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .cv-file-info { flex: 1; }
+  .cv-file-name { font-size: 0.78rem; font-weight: 600; color: var(--white); }
+  .cv-file-size { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); }
+  .cv-download-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; background: var(--docker-blue); color: var(--docker-dark); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.2s ease; }
+  .cv-download-btn:hover { background: #30ccf5; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,183,237,0.35); }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 280px;
+    flex: 1;
+    padding: 56px 64px;
+    position: relative;
+    z-index: 1;
+    max-width: calc(100% - 280px);
+  }
+
+  /* Page header */
+  .page-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .page-icon {
+    width: 52px; height: 52px;
+    background: rgba(13,183,237,0.12);
+    border: 1px solid rgba(13,183,237,0.3);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+
+  .page-title-block {}
+  .page-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px;
+  }
+
+  .page-title {
+    font-size: 1.9rem; font-weight: 700;
+    letter-spacing: -0.03em; color: var(--white);
+  }
+
+  /* Sections */
+  .sections { display: flex; flex-direction: column; gap: 28px; }
+
+  .section {
+    background: rgba(15,42,68,0.6);
+    border: 1px solid var(--docker-border);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+
+  .section-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--docker-border);
+    background: rgba(13,183,237,0.04);
+  }
+
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-blue);
+    background: rgba(13,183,237,0.12);
+    border: 1px solid rgba(13,183,237,0.25);
+    border-radius: 4px; padding: 2px 8px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 0.95rem; font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .section-body { padding: 24px; }
+
+  /* Placeholder field */
+  .field { margin-bottom: 20px; }
+  .field:last-child { margin-bottom: 0; }
+
+  .field-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .field-value {
+    font-size: 0.87rem; color: var(--docker-light);
+    line-height: 1.65;
+  }
+
+  .placeholder {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--placeholder);
+    border: 1px dashed rgba(13,183,237,0.25);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: rgba(138,180,204,0.6);
+    font-style: italic;
+    width: 100%;
+  }
+
+  .placeholder-block {
+    background: var(--placeholder);
+    border: 1px dashed rgba(13,183,237,0.25);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: rgba(138,180,204,0.5);
+    font-style: italic; line-height: 1.8;
+    width: 100%;
+  }
+
+  /* Two-col grid */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ── TABLEAU ACTIVITÉS ── */
+  .table-wrap { overflow-x: auto; }
+
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.8rem;
+  }
+
+  thead tr {
+    background: rgba(13,183,237,0.1);
+    border-bottom: 1px solid rgba(13,183,237,0.3);
+  }
+
+  th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 12px 16px; text-align: left; font-weight: 500;
+  }
+
+  td {
+    padding: 12px 16px;
+    color: var(--docker-light);
+    border-bottom: 1px solid rgba(13,183,237,0.08);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(13,183,237,0.04); }
+
+  .badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; padding: 2px 8px;
+    border-radius: 20px; white-space: nowrap;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .badge-b1 { background: rgba(13,183,237,0.12); color: var(--docker-blue); border: 1px solid rgba(13,183,237,0.2); }
+  .badge-b2 { background: rgba(61,220,132,0.12); color: #3ddc84; border: 1px solid rgba(61,220,132,0.2); }
+  .badge-todo { background: rgba(138,180,204,0.08); color: var(--docker-grey); border: 1px dashed rgba(138,180,204,0.2); font-style: italic; }
+
+  .note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-grey);
+    margin-top: 12px; font-style: italic;
+  }
+
+  /* ── PRODUCTIONS ── */
+  .productions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .prod-btn {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 18px;
+    background: rgba(13,183,237,0.05);
+    border: 1px solid var(--docker-border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--docker-light);
+    transition: all 0.22s ease;
+    cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+
+  .prod-btn::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--docker-blue);
+    transform: scaleY(0); transition: transform 0.22s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .prod-btn:hover {
+    background: rgba(13,183,237,0.12);
+    border-color: rgba(13,183,237,0.45);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(13,183,237,0.12);
+  }
+
+  .prod-btn:hover::before { transform: scaleY(1); }
+
+  .prod-btn.add-btn {
+    border-style: dashed;
+    border-color: rgba(13,183,237,0.2);
+    color: var(--docker-grey);
+  }
+
+  .prod-btn.add-btn:hover { color: var(--docker-light); border-style: solid; }
+
+  .prod-icon { font-size: 22px; flex-shrink: 0; }
+
+  .prod-info { flex: 1; min-width: 0; }
+  .prod-name { font-size: 0.83rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .prod-type { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); margin-top: 2px; }
+
+  .prod-dl {
+    font-size: 16px; color: var(--docker-blue);
+    flex-shrink: 0; opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .prod-btn:hover .prod-dl { opacity: 1; transform: translateY(2px); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <svg class="whale-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="52" width="14" height="10" rx="2" fill="#0db7ed"/>
+      <rect x="28" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <rect x="46" y="36" width="14" height="26" rx="2" fill="#0db7ed"/>
+      <rect x="64" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <path d="M10 66 Q50 90 90 62" stroke="#0db7ed" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="80" cy="48" r="5" fill="#0db7ed"/>
+    </svg>
+    <div class="sidebar-brand">Nathan<br>Manceau</div>
+  </div>
+
+  <div class="nav-label">Navigation</div>
+  <nav class="nav-buttons">
+    <a href="portfolio.html" class="nav-btn active">
+      <span class="btn-icon">🏢</span> Stage 1 <span class="btn-tag">→</span>
+    </a>
+    <a href="stage2.html" class="nav-btn">
+      <span class="btn-icon">🏗️</span> Stage 2 <span class="btn-tag">→</span>
+    </a>
+    <a href="#" class="nav-btn">
+      <span class="btn-icon">🎓</span> Formation <span class="btn-tag">→</span>
+    </a>
+    <a href="#" class="nav-btn">
+      <span class="btn-icon">📡</span> Veille <span class="btn-tag">→</span>
+    </a>
+  </nav>
+
+  <div class="cv-section">
+    <div class="cv-label">Curriculum Vitae</div>
+    <div class="cv-card">
+      <div class="cv-file">
+        <div class="cv-file-icon">📄</div>
+        <div class="cv-file-info">
+          <div class="cv-file-name">CV_Nathan_Manceau.pdf</div>
+          <div class="cv-file-size">Prêt à télécharger</div>
+        </div>
+      </div>
+      <a href="#" class="cv-download-btn" download>⬇ Télécharger le CV</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <div class="page-header">
+    <div class="page-icon">🏢</div>
+    <div class="page-title-block">
+      <div class="page-eyebrow">// stage_1 · running</div>
+      <h1 class="page-title">Stage 1</h1>
+    </div>
+  </div>
+
+  <div class="sections">
+
+    <!-- 1. Introduction entreprise -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <span class="section-title">Introduction de l'entreprise</span>
+      </div>
+      <div class="section-body">
+        <div class="two-col">
+          <div class="field">
+            <div class="field-label">Nom de l'entreprise</div>
+            <div class="placeholder">✏️ À remplir — ex : Société XYZ</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Secteur d'activité</div>
+            <div class="placeholder">✏️ À remplir — ex : Collectivité, PME, ESN…</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Localisation</div>
+            <div class="placeholder">✏️ À remplir — ex : Saint-Malo, 35</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Durée du stage</div>
+            <div class="placeholder">✏️ À remplir — ex : 5 semaines, jan–fév 2024</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:16px;">
+          <div class="field-label">Présentation générale</div>
+          <div class="placeholder-block">
+            ✏️ Décrivez l'entreprise : son activité principale, sa taille (nb d'employés), son organisation, la place de l'informatique en interne...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Environnement juridique -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <span class="section-title">Environnement juridique</span>
+      </div>
+      <div class="section-body">
+        <div class="two-col">
+          <div class="field">
+            <div class="field-label">Forme juridique</div>
+            <div class="placeholder">✏️ À remplir — ex : SAS, SARL, collectivité…</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Capital social</div>
+            <div class="placeholder">✏️ À remplir — ex : 50 000 €</div>
+          </div>
+          <div class="field">
+            <div class="field-label">SIRET / SIREN</div>
+            <div class="placeholder">✏️ À remplir</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Convention collective</div>
+            <div class="placeholder">✏️ À remplir</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:16px;">
+          <div class="field-label">Règles & contraintes applicables</div>
+          <div class="placeholder-block">
+            ✏️ RGPD, charte informatique, confidentialité, politiques internes de sécurité… Mentionnez ce qui s'appliquait à votre mission.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Environnement technologique -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <span class="section-title">Environnement technologique</span>
+      </div>
+      <div class="section-body">
+        <div class="two-col">
+          <div class="field">
+            <div class="field-label">Systèmes d'exploitation</div>
+            <div class="placeholder">✏️ À remplir — ex : Windows Server 2019, Ubuntu…</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Matériels & équipements</div>
+            <div class="placeholder">✏️ À remplir — ex : Switch Huawei, routeurs, NAS…</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Logiciels & outils utilisés</div>
+            <div class="placeholder">✏️ À remplir — ex : Zabbix, PowerShell, WSUS…</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Infrastructure réseau</div>
+            <div class="placeholder">✏️ À remplir — ex : VLAN, VPN, topologie…</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:16px;">
+          <div class="field-label">Schéma / description de l'architecture</div>
+          <div class="placeholder-block">
+            ✏️ Décrivez ou insérez un schéma de l'infrastructure réseau et informatique de l'entreprise (topologie, interconnexions, services hébergés…).
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Productions téléchargeables -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <span class="section-title">Productions & livrables</span>
+      </div>
+      <div class="section-body">
+        <div class="productions-grid">
+          <a href="#" class="prod-btn" download>
+            <div class="prod-icon">📄</div>
+            <div class="prod-info">
+              <div class="prod-name">✏️ Nom du document</div>
+              <div class="prod-type">À remplir — ex : Rapport de stage</div>
+            </div>
+            <div class="prod-dl">⬇</div>
+          </a>
+          <a href="#" class="prod-btn" download>
+            <div class="prod-icon">🗂️</div>
+            <div class="prod-info">
+              <div class="prod-name">✏️ Nom du document</div>
+              <div class="prod-type">À remplir — ex : Schéma réseau</div>
+            </div>
+            <div class="prod-dl">⬇</div>
+          </a>
+          <a href="#" class="prod-btn" download>
+            <div class="prod-icon">📊</div>
+            <div class="prod-info">
+              <div class="prod-name">✏️ Nom du document</div>
+              <div class="prod-type">À remplir — ex : Procédure d'installation</div>
+            </div>
+            <div class="prod-dl">⬇</div>
+          </a>
+          <a href="#" class="prod-btn add-btn">
+            <div class="prod-icon">＋</div>
+            <div class="prod-info">
+              <div class="prod-name">Ajouter une production</div>
+              <div class="prod-type">Cliquez pour lier un fichier</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Tableau activités / compétences BTS SIO -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <span class="section-title">Tableau des activités & compétences BTS SIO</span>
+      </div>
+      <div class="section-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Activité réalisée</th>
+                <th>Compétence BTS SIO (SISR)</th>
+                <th>Bloc</th>
+                <th>Barème officiel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="placeholder" style="width:auto;">✏️ Ex : Configuration d'un switch Huawei</span></td>
+                <td><span class="placeholder" style="width:auto;">✏️ Ex : Exploiter les équipements du réseau</span></td>
+                <td><span class="badge badge-b1">B1</span></td>
+                <td><span class="placeholder" style="width:auto;">✏️ Coeff.</span></td>
+              </tr>
+              <tr>
+                <td><span class="placeholder" style="width:auto;">✏️ Activité 2</span></td>
+                <td><span class="placeholder" style="width:auto;">✏️ Compétence associée</span></td>
+                <td><span class="badge badge-b2">B2</span></td>
+                <td><span class="placeholder" style="width:auto;">✏️ Coeff.</span></td>
+              </tr>
+              <tr>
+                <td><span class="placeholder" style="width:auto;">✏️ Activité 3</span></td>
+                <td><span class="placeholder" style="width:auto;">✏️ Compétence associée</span></td>
+                <td><span class="badge badge-todo">—</span></td>
+                <td><span class="placeholder" style="width:auto;">✏️ Coeff.</span></td>
+              </tr>
+              <tr>
+                <td><span class="placeholder" style="width:auto;">✏️ Activité 4</span></td>
+                <td><span class="placeholder" style="width:auto;">✏️ Compétence associée</span></td>
+                <td><span class="badge badge-todo">—</span></td>
+                <td><span class="placeholder" style="width:auto;">✏️ Coeff.</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Référentiel : BTS SIO option SISR — Blocs B1 (support & mise à disposition) et B2 (administration infrastructure). Ajoutez autant de lignes que nécessaire.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>

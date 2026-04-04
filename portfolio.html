@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathan Manceau — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --docker-dark:   #0d1b2a;
+    --docker-navy:   #0f2a44;
+    --docker-blue:   #0db7ed;
+    --docker-mid:    #1d6fa4;
+    --docker-light:  #e8f6fd;
+    --docker-grey:   #8ab4cc;
+    --docker-border: rgba(13,183,237,0.18);
+    --white:         #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--docker-dark);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND grid ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--docker-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--docker-border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* glow blob */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -120px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(13,183,237,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: rgba(15,42,68,0.85);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid var(--docker-border);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 28px;
+    z-index: 10;
+    animation: slideInLeft 0.6s ease both;
+  }
+
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 48px;
+  }
+
+  /* Docker whale icon (SVG inline) */
+  .whale-icon {
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--docker-blue);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .nav-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--docker-grey);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+
+  .nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--docker-border);
+    border-radius: 8px;
+    background: rgba(13,183,237,0.04);
+    color: var(--docker-light);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-btn::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--docker-blue);
+    transform: scaleY(0);
+    transition: transform 0.22s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .nav-btn:hover {
+    background: rgba(13,183,237,0.12);
+    border-color: rgba(13,183,237,0.45);
+    color: var(--white);
+    transform: translateX(4px);
+  }
+
+  .nav-btn:hover::before { transform: scaleY(1); }
+
+  .nav-btn .btn-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .nav-btn .btn-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--docker-blue);
+    margin-left: auto;
+    opacity: 0.7;
+  }
+
+  /* CV section */
+  .cv-section {
+    margin-top: auto;
+    padding-top: 28px;
+    border-top: 1px solid var(--docker-border);
+  }
+
+  .cv-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--docker-grey);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
+  }
+
+  .cv-card {
+    background: rgba(13,183,237,0.07);
+    border: 1px solid rgba(13,183,237,0.3);
+    border-radius: 10px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cv-file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cv-file-icon {
+    width: 36px; height: 36px;
+    background: rgba(13,183,237,0.15);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .cv-file-info { flex: 1; }
+  .cv-file-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .cv-file-size {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--docker-grey);
+  }
+
+  .cv-download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    background: var(--docker-blue);
+    color: var(--docker-dark);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .cv-download-btn:hover {
+    background: #30ccf5;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(13,183,237,0.35);
+  }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 280px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 60px 60px 60px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero {
+    max-width: 680px;
+    width: 100%;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(13,183,237,0.1);
+    border: 1px solid rgba(13,183,237,0.3);
+    border-radius: 20px;
+    padding: 5px 14px 5px 8px;
+    margin-bottom: 32px;
+  }
+
+  .chip-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--docker-blue);
+    animation: pulse 2s ease infinite;
+  }
+
+  .chip-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--docker-blue);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-name {
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .hero-name span {
+    color: var(--docker-blue);
+  }
+
+  .hero-title {
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    font-weight: 300;
+    color: var(--docker-grey);
+    letter-spacing: 0.01em;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  .hero-title strong {
+    color: var(--docker-light);
+    font-weight: 600;
+  }
+
+  /* Container cards row */
+  .container-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .container-card {
+    background: rgba(15,42,68,0.7);
+    border: 1px solid var(--docker-border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--docker-grey);
+    transition: all 0.2s ease;
+  }
+
+  .container-card:hover {
+    border-color: rgba(13,183,237,0.4);
+    color: var(--docker-light);
+  }
+
+  .container-card .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #3ddc84;
+    flex-shrink: 0;
+  }
+
+  /* decorative docker stack */
+  .docker-stack {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0.25;
+    pointer-events: none;
+    animation: fadeUp 1s 0.5s ease both;
+  }
+
+  .stack-block {
+    width: 140px;
+    height: 28px;
+    border: 1px solid var(--docker-blue);
+    border-radius: 4px;
+    background: rgba(13,183,237,0.06);
+  }
+
+  .stack-block:nth-child(2) { width: 160px; }
+  .stack-block:nth-child(3) { width: 120px; }
+  .stack-block:nth-child(4) { width: 150px; }
+
+  /* ── BIO ── */
+  .bio { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+
+  .bio-block {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: rgba(15,42,68,0.6);
+    border: 1px solid var(--docker-border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    transition: border-color 0.2s ease;
+  }
+
+  .bio-block:hover { border-color: rgba(13,183,237,0.35); }
+  .bio-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+
+  .bio-text { font-size: 0.83rem; color: var(--docker-grey); line-height: 1.65; }
+  .bio-text strong { color: var(--docker-light); font-weight: 600; }
+
+  .bio-heading {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .sidebar { width: 100%; position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--docker-border); }
+    body { flex-direction: column; }
+    .main { margin-left: 0; padding: 40px 24px; }
+    .docker-stack { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+
+  <div class="sidebar-logo">
+    <!-- Docker whale SVG -->
+    <svg class="whale-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="52" width="14" height="10" rx="2" fill="#0db7ed"/>
+      <rect x="28" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <rect x="46" y="36" width="14" height="26" rx="2" fill="#0db7ed"/>
+      <rect x="64" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <path d="M10 66 Q50 90 90 62" stroke="#0db7ed" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="80" cy="48" r="5" fill="#0db7ed"/>
+    </svg>
+    <div class="sidebar-brand">Nathan<br>Manceau</div>
+  </div>
+
+  <div class="nav-label">Navigation</div>
+  <nav class="nav-buttons">
+    <a href="#" class="nav-btn">
+      <span class="btn-icon">🏢</span>
+      Stage 1
+      <span class="btn-tag">→</span>
+    </a>
+    <a href="#" class="nav-btn">
+      <span class="btn-icon">🏗️</span>
+      Stage 2
+      <span class="btn-tag">→</span>
+    </a>
+    <a href="#" class="nav-btn">
+      <span class="btn-icon">🎓</span>
+      Formation
+      <span class="btn-tag">→</span>
+    </a>
+    <a href="#" class="nav-btn">
+      <span class="btn-icon">📡</span>
+      Veille
+      <span class="btn-tag">→</span>
+    </a>
+  </nav>
+
+  <!-- CV -->
+  <div class="cv-section">
+    <div class="cv-label">Curriculum Vitae</div>
+    <div class="cv-card">
+      <div class="cv-file">
+        <div class="cv-file-icon">📄</div>
+        <div class="cv-file-info">
+          <div class="cv-file-name">CV_Nathan_Manceau.pdf</div>
+          <div class="cv-file-size">Prêt à télécharger</div>
+        </div>
+      </div>
+      <a href="#" class="cv-download-btn" download>
+        ⬇ Télécharger le CV
+      </a>
+    </div>
+  </div>
+
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- Decorative stack -->
+  <div class="docker-stack">
+    <div class="stack-block"></div>
+    <div class="stack-block"></div>
+    <div class="stack-block"></div>
+    <div class="stack-block"></div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-chip">
+      <div class="chip-dot"></div>
+      <span class="chip-text">Portfolio · En ligne</span>
+    </div>
+
+    <h2 class="hero-name">Nathan<br><span>Manceau</span></h2>
+
+    <p class="hero-title">
+      <strong>Bienvenue sur mon Portefeuille de Compétences</strong><br>
+      Étudiant passionné par l'informatique et les technologies modernes.
+    </p>
+
+    <div class="bio">
+      <div class="bio-block">
+        <div class="bio-icon">🎓</div>
+        <div class="bio-text">
+          <div class="bio-heading">Parcours</div>
+          Passionné par le numérique depuis la 5ème, j'ai suivi un Bac Pro <strong>Réseaux Informatiques et Systèmes Communicants</strong>, obtenu avec 15 de moyenne. Je suis aujourd'hui en <strong>BTS SIO option SISR</strong>, 2ème année.
+        </div>
+      </div>
+      <div class="bio-block">
+        <div class="bio-icon">🛠️</div>
+        <div class="bio-text">
+          <div class="bio-heading">Compétences & Expériences</div>
+          Configurations réseau, Switch Huawei, serveur WSUS & DocuWiki, affichage dynamique, automatisation PowerShell, <strong>Selenium</strong>, configuration équipements <strong>Castel</strong>, utilisation <strong>Zabbix</strong>, <strong>Grafana</strong>, <strong>Prometheus</strong>.
+        </div>
+      </div>
+      <div class="bio-block">
+        <div class="bio-icon">🚀</div>
+        <div class="bio-text">
+          <div class="bio-heading">Ambition</div>
+          Après mon BTS, j'aimerais rejoindre le <strong>BUT R&T — Pilotage de Projets Réseaux à Saint-Malo</strong> pour aller plus loin sur la gestion d'infrastructures réseau. C'est une formation qui colle vraiment à ce que je veux faire.<br><br>
+          Ensuite, mon objectif c'est de m'engager dans <strong>l'armée</strong> sur un poste en informatique et réseaux. L'idée de travailler dans un environnement exigeant, sur des missions concrètes et importantes, ça me motive vraiment.
+        </div>
+      </div>
+      <div class="bio-block">
+        <div class="bio-icon">🤝</div>
+        <div class="bio-text">
+          <div class="bio-heading">Savoir-être</div>
+          Communication, travail en équipe, adaptabilité, rigueur et persévérance — des qualités qui me permettent de m'intégrer efficacement en entreprise et en administration publique.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+</body>
+</html>
