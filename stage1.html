@@ -424,26 +424,24 @@
         <div class="two-col">
           <div class="field">
             <div class="field-label">Nom de l'entreprise</div>
-            <div class="placeholder">✏️ À remplir — ex : Société XYZ</div>
+            <div class="field-value">Mairie de Fougères</div>
           </div>
           <div class="field">
             <div class="field-label">Secteur d'activité</div>
-            <div class="placeholder">✏️ À remplir — ex : Collectivité, PME, ESN…</div>
+            <div class="field-value">Collectivité territoriale – Administration publique</div>
           </div>
           <div class="field">
             <div class="field-label">Localisation</div>
-            <div class="placeholder">✏️ À remplir — ex : Saint-Malo, 35</div>
+            <div class="field-value">Fougères, Ille-et-Vilaine (35)</div>
           </div>
           <div class="field">
             <div class="field-label">Durée du stage</div>
-            <div class="placeholder">✏️ À remplir — ex : 5 semaines, jan–fév 2024</div>
+            <div class="field-value">6 semaines – mai à juillet 2024</div>
           </div>
         </div>
         <div class="field" style="margin-top:16px;">
           <div class="field-label">Présentation générale</div>
-          <div class="placeholder-block">
-            ✏️ Décrivez l'entreprise : son activité principale, sa taille (nb d'employés), son organisation, la place de l'informatique en interne...
-          </div>
+          <div class="field-value">La Mairie de Fougères est une collectivité territoriale de taille moyenne (environ 200 agents). Elle assure les services publics locaux : état civil, urbanisme, écoles, action sociale, culture, etc. La direction des systèmes d'information (DSI) compte environ 5 à 8 personnes. L'informatique est fortement présente : gestion des postes agents (PC, impression), réseau des bâtiments communaux (mairie centrale, écoles, médiathèque, CCAS), serveurs, téléphonie, et déploiement de services numériques aux citoyens.</div>
         </div>
       </div>
     </div>
@@ -458,25 +456,31 @@
         <div class="two-col">
           <div class="field">
             <div class="field-label">Forme juridique</div>
-            <div class="placeholder">✏️ À remplir — ex : SAS, SARL, collectivité…</div>
+            <div class="field-value">Collectivité territoriale (Commune)</div>
           </div>
           <div class="field">
             <div class="field-label">Capital social</div>
-            <div class="placeholder">✏️ À remplir — ex : 50 000 €</div>
+            <div class="field-value">Sans objet (budget principal de la commune)</div>
           </div>
           <div class="field">
             <div class="field-label">SIRET / SIREN</div>
-            <div class="placeholder">✏️ À remplir</div>
+            <div class="field-value">213 501 158 00017</div>
           </div>
           <div class="field">
             <div class="field-label">Convention collective</div>
-            <div class="placeholder">✏️ À remplir</div>
+            <div class="field-value">Fonction publique territoriale (FPT)</div>
           </div>
         </div>
         <div class="field" style="margin-top:16px;">
           <div class="field-label">Règles & contraintes applicables</div>
-          <div class="placeholder-block">
-            ✏️ RGPD, charte informatique, confidentialité, politiques internes de sécurité… Mentionnez ce qui s'appliquait à votre mission.
+          <div class="field-value">
+            <ul style="list-style:none; display:flex; flex-direction:column; gap:6px;">
+              <li>— RGPD — protection des données des administrés et agents</li>
+              <li>— Charte informatique communale</li>
+              <li>— Obligation de confidentialité (données d'état civil, affaires sociales)</li>
+              <li>— Politique de sécurité du système d'information (PSSI) de la collectivité</li>
+              <li>— Traçabilité des accès et des actions sur le réseau</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -492,19 +496,50 @@
         <div class="two-col">
           <div class="field">
             <div class="field-label">Systèmes d'exploitation</div>
-            <div class="placeholder">✏️ À remplir — ex : Windows Server 2019, Ubuntu…</div>
+            <div class="field-value">
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:4px;">
+                <li>Windows 10 / 11 (postes agents)</li>
+                <li>Windows Server 2019 / 2022</li>
+                <li>Debian / Ubuntu (services internes)</li>
+              </ul>
+            </div>
           </div>
           <div class="field">
             <div class="field-label">Matériels & équipements</div>
-            <div class="placeholder">✏️ À remplir — ex : Switch Huawei, routeurs, NAS…</div>
+            <div class="field-value">
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:4px;">
+                <li>Postes Dell / Lenovo</li>
+                <li>Switchs Cisco / HP</li>
+                <li>Bornes Wi-Fi Ubiquiti / Aruba</li>
+                <li>Serveurs Dell PowerEdge</li>
+                <li>NAS de sauvegarde</li>
+                <li>Parc d'imprimantes / photocopieurs</li>
+              </ul>
+            </div>
           </div>
           <div class="field">
             <div class="field-label">Logiciels & outils utilisés</div>
-            <div class="placeholder">✏️ À remplir — ex : Zabbix, PowerShell, WSUS…</div>
+            <div class="field-value">
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:4px;">
+                <li>Suite Office 365 / LibreOffice</li>
+                <li>Active Directory</li>
+                <li>GLPI (gestion du parc)</li>
+                <li>Veeam (sauvegardes)</li>
+                <li>Firefox / Thunderbird</li>
+                <li>Zabbix / Paessler PRTG (supervision)</li>
+              </ul>
+            </div>
           </div>
           <div class="field">
             <div class="field-label">Infrastructure réseau</div>
-            <div class="placeholder">✏️ À remplir — ex : VLAN, VPN, topologie…</div>
+            <div class="field-value">
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:4px;">
+                <li>Plusieurs VLAN (administration, écoles, public, serveurs)</li>
+                <li>VPN pour agents en télétravail / sites distants</li>
+                <li>Réseau fibre / Ethernet</li>
+                <li>Passerelle sécurisée, filtrage web, pare-feu</li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="field" style="margin-top:16px;">
