@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathan Manceau — Formation</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --docker-dark:   #0d1b2a;
+    --docker-navy:   #0f2a44;
+    --docker-blue:   #0db7ed;
+    --docker-mid:    #1d6fa4;
+    --docker-light:  #e8f6fd;
+    --docker-grey:   #8ab4cc;
+    --docker-border: rgba(13,183,237,0.18);
+    --white:         #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--docker-dark);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--docker-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--docker-border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none; z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -120px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(13,183,237,0.10) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: rgba(15,42,68,0.85);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid var(--docker-border);
+    display: flex; flex-direction: column;
+    padding: 40px 28px;
+    z-index: 10;
+  }
+
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 48px;
+    cursor: pointer;
+  }
+
+  .whale-icon { width: 36px; height: 36px; flex-shrink: 0; }
+
+  .sidebar-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--docker-blue);
+    letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3;
+  }
+
+  .nav-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-grey);
+    text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px;
+  }
+
+  .nav-buttons { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--docker-border);
+    border-radius: 8px;
+    background: rgba(13,183,237,0.04);
+    color: var(--docker-light);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.22s ease;
+    position: relative; overflow: hidden;
+  }
+
+  .nav-btn::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--docker-blue);
+    transform: scaleY(0); transition: transform 0.22s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .nav-btn:hover { background: rgba(13,183,237,0.12); border-color: rgba(13,183,237,0.45); color: var(--white); transform: translateX(4px); }
+  .nav-btn:hover::before { transform: scaleY(1); }
+  .nav-btn.active { background: rgba(13,183,237,0.15); border-color: rgba(13,183,237,0.5); color: var(--white); }
+  .nav-btn.active::before { transform: scaleY(1); }
+  .nav-btn .btn-icon { font-size: 18px; flex-shrink: 0; }
+  .nav-btn .btn-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--docker-blue); margin-left: auto; opacity: 0.7; }
+
+  .cv-section { margin-top: auto; padding-top: 28px; border-top: 1px solid var(--docker-border); }
+  .cv-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 14px; }
+  .cv-card { background: rgba(13,183,237,0.07); border: 1px solid rgba(13,183,237,0.3); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .cv-file { display: flex; align-items: center; gap: 10px; }
+  .cv-file-icon { width: 36px; height: 36px; background: rgba(13,183,237,0.15); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .cv-file-info { flex: 1; }
+  .cv-file-name { font-size: 0.78rem; font-weight: 600; color: var(--white); }
+  .cv-file-size { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); }
+  .cv-download-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; background: var(--docker-blue); color: var(--docker-dark); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.2s ease; }
+  .cv-download-btn:hover { background: #30ccf5; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,183,237,0.35); }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 280px;
+    flex: 1;
+    padding: 56px 64px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .page-icon {
+    width: 52px; height: 52px;
+    background: rgba(13,183,237,0.12);
+    border: 1px solid rgba(13,183,237,0.3);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+
+  .page-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px;
+  }
+
+  .page-title { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; }
+
+  /* ── EXPLORER ── */
+  .explorer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* Année bloc */
+  .year-block {
+    background: rgba(15,42,68,0.6);
+    border: 1px solid var(--docker-border);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .year-block:nth-child(1) { animation-delay: 0.1s; }
+  .year-block:nth-child(2) { animation-delay: 0.2s; }
+
+  .year-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 24px;
+    background: rgba(13,183,237,0.06);
+    border-bottom: 1px solid var(--docker-border);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .year-header:hover { background: rgba(13,183,237,0.1); }
+
+  .year-chevron {
+    margin-left: auto;
+    color: var(--docker-blue);
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .year-block.open .year-chevron { transform: rotate(90deg); }
+
+  .year-icon {
+    width: 32px; height: 32px;
+    background: rgba(13,183,237,0.15);
+    border: 1px solid rgba(13,183,237,0.3);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .year-title {
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .year-subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-grey);
+    margin-top: 2px;
+  }
+
+  .year-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .year-block.open .year-body { max-height: 2000px; }
+
+  .year-inner { padding: 20px 24px; }
+
+  /* ── FILE TREE ── */
+  .tree { font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
+
+  .tree-folder {
+    margin-bottom: 6px;
+  }
+
+  .folder-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+    color: var(--docker-light);
+  }
+
+  .folder-header:hover { background: rgba(13,183,237,0.08); }
+
+  .folder-arrow {
+    font-size: 10px; color: var(--docker-blue);
+    transition: transform 0.2s ease;
+    width: 12px; flex-shrink: 0;
+  }
+
+  .tree-folder.open .folder-arrow { transform: rotate(90deg); }
+
+  .folder-icon { font-size: 15px; flex-shrink: 0; }
+  .folder-name { flex: 1; }
+
+  .folder-badge {
+    font-size: 9px; padding: 1px 7px;
+    background: rgba(13,183,237,0.1);
+    border: 1px solid rgba(13,183,237,0.2);
+    border-radius: 10px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .folder-children {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+    margin-left: 20px;
+    border-left: 1px solid rgba(13,183,237,0.12);
+    padding-left: 12px;
+  }
+
+  .tree-folder.open .folder-children { max-height: 1000px; }
+
+  /* File item */
+  .file-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--docker-grey);
+    transition: all 0.15s;
+    font-size: 12px;
+  }
+
+  .file-item:hover {
+    background: rgba(13,183,237,0.08);
+    color: var(--docker-light);
+  }
+
+  .file-icon { font-size: 13px; flex-shrink: 0; }
+  .file-name { flex: 1; }
+
+  .file-dl {
+    font-size: 11px; color: var(--docker-blue);
+    opacity: 0; transition: opacity 0.15s;
+  }
+
+  .file-item:hover .file-dl { opacity: 1; }
+
+  .file-type {
+    font-size: 9px; color: var(--docker-grey);
+    background: rgba(138,180,204,0.08);
+    border: 1px solid rgba(138,180,204,0.15);
+    border-radius: 4px; padding: 1px 6px;
+    text-transform: uppercase;
+  }
+
+  .file-type.pdf  { color: #ff6b6b; background: rgba(255,107,107,0.08); border-color: rgba(255,107,107,0.2); }
+  .file-type.docx { color: #4da6ff; background: rgba(77,166,255,0.08); border-color: rgba(77,166,255,0.2); }
+  .file-type.pptx { color: #ffaa44; background: rgba(255,170,68,0.08); border-color: rgba(255,170,68,0.2); }
+  .file-type.txt  { color: var(--docker-grey); }
+
+  /* Placeholder file */
+  .file-item.placeholder {
+    color: rgba(138,180,204,0.35);
+    font-style: italic;
+    cursor: default;
+  }
+
+  .file-item.placeholder:hover { background: none; color: rgba(138,180,204,0.35); }
+  .file-item.placeholder .file-dl { display: none; }
+
+  /* Tree root label */
+  .tree-root {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 12px 12px;
+    font-size: 11px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    border-bottom: 1px solid rgba(13,183,237,0.08);
+    margin-bottom: 10px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo" style="cursor:pointer;" onclick="window.location.href='index.html'">
+    <svg class="whale-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="52" width="14" height="10" rx="2" fill="#0db7ed"/>
+      <rect x="28" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <rect x="46" y="36" width="14" height="26" rx="2" fill="#0db7ed"/>
+      <rect x="64" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <path d="M10 66 Q50 90 90 62" stroke="#0db7ed" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="80" cy="48" r="5" fill="#0db7ed"/>
+    </svg>
+    <div class="sidebar-brand">Nathan<br>Manceau</div>
+  </div>
+
+  <div class="nav-label">Navigation</div>
+  <nav class="nav-buttons">
+    <a href="stage1.html" class="nav-btn">
+      <span class="btn-icon">🏢</span> Stage 1 <span class="btn-tag">→</span>
+    </a>
+    <a href="stage2.html" class="nav-btn">
+      <span class="btn-icon">🏗️</span> Stage 2 <span class="btn-tag">→</span>
+    </a>
+    <a href="formation.html" class="nav-btn active">
+      <span class="btn-icon">🎓</span> Formation <span class="btn-tag">→</span>
+    </a>
+    <a href="#" class="nav-btn">
+      <span class="btn-icon">📡</span> Veille <span class="btn-tag">→</span>
+    </a>
+  </nav>
+
+  <div class="cv-section">
+    <div class="cv-label">Curriculum Vitae</div>
+    <div class="cv-card">
+      <div class="cv-file">
+        <div class="cv-file-icon">📄</div>
+        <div class="cv-file-info">
+          <div class="cv-file-name">CV_Nathan_Manceau.pdf</div>
+          <div class="cv-file-size">Prêt à télécharger</div>
+        </div>
+      </div>
+      <a href="#" class="cv-download-btn" download>⬇ Télécharger le CV</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <div class="page-header">
+    <div class="page-icon">🎓</div>
+    <div>
+      <div class="page-eyebrow">// formation · BTS SIO SISR</div>
+      <h1 class="page-title">Formation</h1>
+    </div>
+  </div>
+
+  <div class="explorer">
+
+    <!-- PREMIÈRE ANNÉE -->
+    <div class="year-block open" id="year1">
+      <div class="year-header" onclick="toggleYear('year1')">
+        <div class="year-icon">📁</div>
+        <div>
+          <div class="year-title">Première année</div>
+          <div class="year-subtitle">BTS SIO SISR · 2023 – 2024</div>
+        </div>
+        <span class="year-chevron">▶</span>
+      </div>
+      <div class="year-body">
+        <div class="year-inner">
+          <div class="tree">
+
+            <div class="tree-root">📂 BTS_SIO / Année_1</div>
+
+            <!-- Dossier TP Réseau -->
+            <div class="tree-folder open" id="f1">
+              <div class="folder-header" onclick="toggleFolder('f1')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Travaux_Pratiques_Réseau</span>
+                <span class="folder-badge">TP</span>
+              </div>
+              <div class="folder-children">
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">✏️ TP_01 — À remplir</span>
+                  <span class="file-type">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">✏️ TP_02 — À remplir</span>
+                  <span class="file-type">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">✏️ TP_03 — À remplir</span>
+                  <span class="file-type">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Dossier Systèmes -->
+            <div class="tree-folder" id="f2">
+              <div class="folder-header" onclick="toggleFolder('f2')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Systèmes_et_Services</span>
+                <span class="folder-badge">TP</span>
+              </div>
+              <div class="folder-children">
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">✏️ TP_01 — À remplir</span>
+                  <span class="file-type">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">✏️ TP_02 — À remplir</span>
+                  <span class="file-type">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Dossier Comptes Rendus -->
+            <div class="tree-folder" id="f3">
+              <div class="folder-header" onclick="toggleFolder('f3')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Comptes_Rendus</span>
+                <span class="folder-badge">CR</span>
+              </div>
+              <div class="folder-children">
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">✏️ CR_01 — À remplir</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">✏️ CR_02 — À remplir</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEUXIÈME ANNÉE -->
+    <div class="year-block" id="year2">
+      <div class="year-header" onclick="toggleYear('year2')">
+        <div class="year-icon">📁</div>
+        <div>
+          <div class="year-title">Deuxième année</div>
+          <div class="year-subtitle">BTS SIO SISR · 2024 – 2025</div>
+        </div>
+        <span class="year-chevron">▶</span>
+      </div>
+      <div class="year-body">
+        <div class="year-inner">
+          <div class="tree">
+
+            <div class="tree-root">📂 BTS_SIO / Année_2</div>
+
+            <!-- Dossier TP Réseau -->
+            <div class="tree-folder" id="f4">
+              <div class="folder-header" onclick="toggleFolder('f4')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Travaux_Pratiques_Réseau</span>
+                <span class="folder-badge">TP</span>
+              </div>
+              <div class="folder-children">
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">✏️ TP_01 — À remplir</span>
+                  <span class="file-type">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">✏️ TP_02 — À remplir</span>
+                  <span class="file-type">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Dossier Systèmes -->
+            <div class="tree-folder" id="f5">
+              <div class="folder-header" onclick="toggleFolder('f5')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Systèmes_et_Services</span>
+                <span class="folder-badge">TP</span>
+              </div>
+              <div class="folder-children">
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">✏️ TP_01 — À remplir</span>
+                  <span class="file-type">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Dossier Comptes Rendus -->
+            <div class="tree-folder" id="f6">
+              <div class="folder-header" onclick="toggleFolder('f6')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Comptes_Rendus</span>
+                <span class="folder-badge">CR</span>
+              </div>
+              <div class="folder-children">
+                <a href="#" class="file-item placeholder">
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">✏️ CR_01 — À remplir</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  function toggleYear(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+  function toggleFolder(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
