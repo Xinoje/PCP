@@ -1,0 +1,28 @@
+openssl dgst : Utilitaire de calcul d'empreinte numérique.
+-sha256 : Utilise l'algorithme de hachage SHA-256.
+-sign mesCles.key : Utilise la clé privée mesCles.key pour signer le fichier.
+-out signature : Enregistre la signature dans le fichier signature.
+contract.txt : Fichier à signer.
+ 
+
+
+1. Vérifie l'intégrité du fichier contract.txt
+ cat contract.txt
+
+2. Vérifie la clé publique
+openssl rsa -pubout -in mesCles.key -out clePubDeNathan.pub
+
+
+3. Régénération de la signature
+
+openssl dgst -sha256 -sign mesCles.key -out signature contract.txt
+
+
+Vérification
+  openssl dgst -sha256 -verify clePubDeNathan.pub -signature signature contract.txt
+
+La commande openssl dgst -sha256 -verify clePubDeNathan.pub -signature signature contract.txt permet de vérifier que le fichier contract.txt n'a pas été altéré et que sa signature a bien été générée avec la clé privée correspondant à clePubDeNathan.pub
+
+a)	Utilisez nano pour modifier le fichier contract.txt. Remplacez Mr. Jester par Mr. Viper.
+b)	Une fois la modification enregistrée, vérifier à nouveau la signature.
+c)	Indiquer le résultat de la commande et ce qu’il sous-entend.

@@ -1,0 +1,25 @@
+- Vlans ont accès à Internet
+- Restriction aux sites en HTTP (https uniquement)
+- La LAN doit pouvoir accéder au DNS Labannu
+- Labannu doit accéder doit au DNS 8.8.8.8
+- Vlan doivent accéder aux sites externes (OCS/GLPI, Zabbix, dmz...)
+- Le VLAN 10 à le droit de pinguer en interne et en externe
+- Le VLan 10 a accès en SSH au pare-feu
+- Permettre aux agents OCS d'effectuer la remontée des informations dans le serveur OCS
+- Mise en place des logs (aux alertes) pour les tentatives d'intrusions 
+    - Interdire les pings, accès en SSH, accès ftp, accès en Telnet
+    - Accès de l'extérieur à la DMZ uniquement en HTTPS
+- Délimiter la plage IP des PCs ayant accès accès à la borne WIFI (DHCP)
+- DMZ doit pouvoir accéder à Internet 
+- Les utilisateurs ne doivent pas pouvoir accédezr aux sites Shoppings et news
+- Seul le VLAN 10 ne pourra administrer la DMZ
+- La machine GLPIOCS doit pouvoir accéder à Internet
+
+
+
+adressage Webislab 1 :  172.207.0.249/29
+adressage Webislab 2 :  172.207.0.250/29
+adressage MariaDB 1 :  172.207.0.251/29
+adressaage MariaDB 2 :  172.207.0.252/29
+
+passerelle: 172.207.0.254

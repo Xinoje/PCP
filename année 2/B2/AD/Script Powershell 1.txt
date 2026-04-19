@@ -1,0 +1,48 @@
+# récupération du nom de domaine
+$adDomain = Get-ADDomain
+$domainName = $adDomain.DNSRoot
+
+# saisie d'un nom et prénom
+$nom = Read-Host "Nom utilisateur ?"
+$prenom = Read-Host "Prénom utilisateur ? "
+
+# construction du login et du nom complet
+$login = $prenom.Substring(1,1) + "." + $nom
+$login = $login.ToLower();
+$nomComplet = $prenom + " " + $nom
+
+echo "Login : " + $login
+echo "Nom complet : " + $nomComplet
+
+# mot de passe donné par défaut
+$mdp = "MotPasse2022;"
+
+# création d'un compte utilisateur dans l'AD avec lecteur p: sur le répertoire personnel
+New-AdUser -DisplayName $nomComplet -Surname $prenom -Name $nomComplet -SamAccountName $login -UserPrincipalName $login@$domainName -AccountPassword (ConvertTo-SecureString -AsPlainText $mdp -Force) 
+# activation du compte utilisateur
+Enable-ADAccount $login
+
+# sous PowerShell, le sous-répertoire utilisateur doit être créé explicitement avec # les bonnes permissions contrairement à l'outil Utilisateurs et ordinateurs de 
+# l'AD où cette création est faite lors de la validation du répertoire de base de 
+# l'utilisateur
+# création d'un répertoire personnel sur le contrôleur de domaine, affectation de ce répertoire à l'utilisateur avec montage automatique sous le lecteur P:
+$share = "\\testons\HomeDrive$\";
+
+# création du répertoire utilisateur associé dans l'AD
+New-Item -Name $login -ItemType Directory -Path $share
+$path = $share + "\" + $login
+#echo $path
+
+# création d'une nouvelle ACL pour le nouvel utilisateur
+$acl = Get-Acl $path
+
+# création d'une nouvelle règle d'accès pour le compte personnel de l'utilisateur
+$acr=New-Object Security.AccessControl.FileSystemAccessRule($login, "FullControl","ContainerInherit,ObjectInherit", "None", "Allow")
+# ajout de cette règle d'accès dans l'access list du répertoire
+$acl.AddAccessRule($acr)
+#echo "Ajout d'une entrée pour le nouveau compte utilisateur créé"
+# réapplication de l'access-list au répertoire
+Set-Acl -aclobject $acl $path
+
+echo "Nouvel utilisateur " + $nomComplet + "bien créé" 
+

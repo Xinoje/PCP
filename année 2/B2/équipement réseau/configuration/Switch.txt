@@ -1,0 +1,198 @@
+Current configuration : 4452 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname SW5_MUTLAB
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+system mtu routing 1500
+vtp mode transparent
+ip subnet-zero
+!
+!
+no ip domain-lookup
+ip domain-name gsb.com
+!
+!
+crypto pki trustpoint TP-self-signed-3936822656
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3936822656
+ revocation-check none
+ rsakeypair TP-self-signed-3936822656
+!
+!
+crypto pki certificate chain TP-self-signed-3936822656
+ certificate self-signed 01
+  3082024A 308201B3 A0030201 02020101 300D0609 2A864886 F70D0101 04050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 33393336 38323236 3536301E 170D3933 30333031 30303031
+  31335A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 39333638
+  32323635 3630819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  8100A499 FC337DAC 665B7398 962CA424 6DD633C6 10889FF5 D6301BC3 8A7979FC
+  55E874BE 48A21DD9 B2C383F4 E21DE0F0 91DD6457 66DFA178 D268B7D8 6B4756A3
+  98009195 522CCDDF 479E956D 55A77ABE BEDF7238 F8A106D4 95FE2ED0 84874BFC
+  3CA472B0 4F5A27EC D763F7C2 B3E6E0E8 22F516CF 5A683DD7 C51229B9 3976AA2E
+  C0610203 010001A3 72307030 0F060355 1D130101 FF040530 030101FF 301D0603
+  551D1104 16301482 12535735 5F4D5554 4C41422E 6773622E 636F6D30 1F060355
+  1D230418 30168014 352A4C1A 0AE2ECDD A462620E 819161F2 5FCC3A00 301D0603
+  551D0E04 16041435 2A4C1A0A E2ECDDA4 62620E81 9161F25F CC3A0030 0D06092A
+  864886F7 0D010104 05000381 81000EFC B74642ED BC8112A8 119F05C6 769B7485
+  637C85A8 765A7A17 C024A146 24662D74 E8125C95 E8CCB9C3 7F8D4189 2975254B
+  586D9E45 59E1BD2B 64C4D928 34E243F9 2A3D22F5 2D2EEAD2 7E02C848 3C46C537
+  743F3A80 447B3BC1 0F507B4D 31AA2B54 54135E81 633EF6FE 122B2237 EA37884A
+  0EEDEBA8 89F65F9A 5956E324 E7DE
+  quit
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+no spanning-tree vlan 1-4094
+!
+vlan internal allocation policy ascending
+!
+vlan 10
+ name zone_informatique
+!
+vlan 20
+ name reseau_20
+!
+vlan 150
+ name zone_wifi
+!
+vlan 400
+ name sortie
+!
+vlan 402
+ name zone_serveur
+!
+!
+interface FastEthernet0/1
+ switchport access vlan 402
+ switchport mode access
+!
+interface FastEthernet0/2
+ switchport access vlan 402
+ switchport mode access
+!
+interface FastEthernet0/3
+ switchport access vlan 402
+ switchport mode access
+!
+interface FastEthernet0/4
+ switchport access vlan 402
+ switchport mode access
+!
+interface FastEthernet0/5
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/6
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/7
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/8
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/9
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/10
+ switchport access vlan 150
+ switchport mode access
+!
+interface FastEthernet0/11
+ switchport access vlan 150
+ switchport mode access
+!
+interface FastEthernet0/12
+ switchport access vlan 150
+ switchport mode access
+!
+interface FastEthernet0/13
+ switchport access vlan 150
+ switchport mode access
+!
+interface FastEthernet0/14
+ switchport access vlan 150
+ switchport mode access
+!
+interface FastEthernet0/15
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/16
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/17
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/18
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/19
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/20
+ switchport trunk allowed vlan 10,20,150,402
+ switchport mode trunk
+!
+interface FastEthernet0/21
+ switchport trunk allowed vlan 400
+ switchport mode trunk
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+ switchport access vlan 400
+ switchport mode access
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+!
+ip http server
+ip http secure-server
+no cdp run
+!
+control-plane
+!
+!
+line con 0
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+monitor session 1 source interface Fa0/20
+monitor session 1 destination interface Fa0/9
+end
