@@ -281,6 +281,7 @@
 
   .badge-b1 { background: rgba(13,183,237,0.12); color: var(--docker-blue); border: 1px solid rgba(13,183,237,0.2); }
   .badge-b2 { background: rgba(61,220,132,0.12); color: #3ddc84; border: 1px solid rgba(61,220,132,0.2); }
+  .badge-b3 { background: rgba(255,170,68,0.12); color: #ffaa44; border: 1px solid rgba(255,170,68,0.2); }
   .badge-todo { background: rgba(138,180,204,0.08); color: var(--docker-grey); border: 1px dashed rgba(138,180,204,0.2); font-style: italic; }
 
   .note {
@@ -364,7 +365,7 @@
     background: rgba(13,183,237,0.03);
   }
 
-  .activity-header {
+  .activity-header { flex-wrap: wrap; row-gap: 8px; 
     display: flex; align-items: center; gap: 14px;
     padding: 14px 18px;
     border-bottom: 1px solid var(--docker-border);
@@ -393,6 +394,9 @@
     transition: all 0.2s ease;
     flex-shrink: 0;
   }
+
+  .gantt-dl { background: rgba(61,220,132,0.08); border-color: rgba(61,220,132,0.25); color: #3ddc84; }
+  .gantt-dl:hover { background: rgba(61,220,132,0.18); border-color: rgba(61,220,132,0.5); color: var(--white); }
 
   .activity-dl:hover {
     background: rgba(13,183,237,0.18);
@@ -542,7 +546,7 @@
           <div class="cv-file-size">Prêt à télécharger</div>
         </div>
       </div>
-      <a href="#" class="cv-download-btn" download>⬇ Télécharger le CV</a>
+      <a href="CV_Nathan_Manceau.pdf" class="cv-download-btn" download>⬇ Télécharger le CV</a>
     </div>
   </div>
 </aside>
@@ -702,133 +706,119 @@
         <span class="section-title">Productions & livrables</span>
       </div>
       <div class="section-body">
-        <div class="activities-list">
+                <div class="activities-list">
 
-          <!-- ACTIVITÉ 1 -->
+          <!-- ACTIVITÉ 01 -->
           <div class="activity-block">
             <div class="activity-header">
               <div class="activity-icon">📋</div>
               <div class="activity-meta">
                 <div class="activity-num">Activité 01</div>
-                <div class="activity-name">À remplir — nom de l'activité</div>
+                <div class="activity-name">Mise en place et configuration d'un serveur Selenium Grid avec proxy Apache</div>
               </div>
-              <a href="#" class="activity-dl" download title="Télécharger le rapport">
-                📄 Rapport Word <span>⬇</span>
-              </a>
+              <a href="Stage 1/RA_Selenium_Nathan Manceau.docx" class="activity-dl" download>📄 Rapport Word <span>⬇</span></a>
+              <a href="#" class="activity-dl gantt-dl" download>📊 Gantt <span>⬇</span></a>
             </div>
-            <div class="competences-toggle" onclick="toggleComp(this)">
-              ▶ Tableau de compétences
-            </div>
+            <div class="competences-toggle" onclick="toggleComp(this)">▶ Tableau de compétences</div>
             <div class="competences-body">
               <table class="comp-table">
-                <thead>
-                  <tr>
-                    <th>Tâche réalisée</th>
-                    <th>Compétence BTS SIO SISR</th>
-                    <th>Bloc</th>
-                    <th>Barème</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b1">B1</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b2">B2</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
+                <thead><tr><th>Tâche réalisée</th><th>Référentiel</th><th>Bloc</th></tr></thead>
+                <tbody><tr><td>Connexion SSH et installation Java / Selenium Grid</td><td>B2.2.1 Installer et configurer des éléments d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Ajout d'un enregistrement DNS</td><td>B2.1.4 Choisir les éléments pour la qualité et la disponibilité d'un service</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Configuration proxy Apache (reverse proxy)</td><td>B2.2.1 Installer et configurer des éléments d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Activation modules Apache (a2ensite, a2dissite)</td><td>B2.2.3 Tester l'intégration et l'acceptation d'une solution d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Test accès via FQDN et interface Grid</td><td>B2.2.4 Déployer une solution d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Sécurisation HTTPS (redirection 80 vers 443)</td><td>B3.3.2 Identifier les menaces et mettre en oeuvre les défenses appropriées</td><td><span class="badge badge-b3">Bloc 3</span></td></tr></tbody>
               </table>
             </div>
           </div>
-
-          <!-- ACTIVITÉ 2 -->
+          <!-- ACTIVITÉ 02 -->
           <div class="activity-block">
             <div class="activity-header">
               <div class="activity-icon">📋</div>
               <div class="activity-meta">
                 <div class="activity-num">Activité 02</div>
-                <div class="activity-name">À remplir — nom de l'activité</div>
+                <div class="activity-name">Automatisation d'un affichage système sur fond d'écran via PowerShell</div>
               </div>
-              <a href="#" class="activity-dl" download title="Télécharger le rapport">
-                📄 Rapport Word <span>⬇</span>
-              </a>
+              <a href="Stage 1/RA_ Affichage_de_données_système_sur_des_serveurs_via_PowerShell_Nathan Manceau.docx" class="activity-dl" download>📄 Rapport Word <span>⬇</span></a>
+              <a href="#" class="activity-dl gantt-dl" download>📊 Gantt <span>⬇</span></a>
             </div>
-            <div class="competences-toggle" onclick="toggleComp(this)">
-              ▶ Tableau de compétences
-            </div>
+            <div class="competences-toggle" onclick="toggleComp(this)">▶ Tableau de compétences</div>
             <div class="competences-body">
               <table class="comp-table">
-                <thead>
-                  <tr>
-                    <th>Tâche réalisée</th>
-                    <th>Compétence BTS SIO SISR</th>
-                    <th>Bloc</th>
-                    <th>Barème</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b1">B1</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b2">B2</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
+                <thead><tr><th>Tâche réalisée</th><th>Référentiel</th><th>Bloc</th></tr></thead>
+                <tbody><tr><td>Création script PowerShell avec bibliothèque .NET</td><td>B1.2.1 Traiter des demandes concernant les services réseau et système, applicatifs</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Mise en place tâche planifiée</td><td>B1.5.1 Déployer un service</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Configuration exécution sans utilisateur + droits max</td><td>B1.1.2 Mettre en place et vérifier les niveaux d'habilitation associés à un service</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Boucle de rafraîchissement automatique (While true)</td><td>B2.3.2 Automatiser des tâches d'administration</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Affichage infos système (IP, hostname, OS, user, date)</td><td>B2.3.1 Administrer sur site et à distance des éléments d'une infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr></tbody>
               </table>
             </div>
           </div>
-
-          <!-- ACTIVITÉ 3 -->
+          <!-- ACTIVITÉ 03 -->
           <div class="activity-block">
             <div class="activity-header">
               <div class="activity-icon">📋</div>
               <div class="activity-meta">
                 <div class="activity-num">Activité 03</div>
-                <div class="activity-name">À remplir — nom de l'activité</div>
+                <div class="activity-name">Déploiement d'images système avec FOG (Free Open-source Ghost)</div>
               </div>
-              <a href="#" class="activity-dl" download title="Télécharger le rapport">
-                📄 Rapport Word <span>⬇</span>
-              </a>
+              <a href="Stage 1/RA_Image Fog_Nathan Manceau.docx" class="activity-dl" download>📄 Rapport Word <span>⬇</span></a>
+              <a href="#" class="activity-dl gantt-dl" download>📊 Gantt <span>⬇</span></a>
             </div>
-            <div class="competences-toggle" onclick="toggleComp(this)">
-              ▶ Tableau de compétences
-            </div>
+            <div class="competences-toggle" onclick="toggleComp(this)">▶ Tableau de compétences</div>
             <div class="competences-body">
               <table class="comp-table">
-                <thead>
-                  <tr>
-                    <th>Tâche réalisée</th>
-                    <th>Compétence BTS SIO SISR</th>
-                    <th>Bloc</th>
-                    <th>Barème</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b1">B1</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b2">B2</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
+                <thead><tr><th>Tâche réalisée</th><th>Référentiel</th><th>Bloc</th></tr></thead>
+                <tbody><tr><td>Configuration ordre de démarrage PXE dans le BIOS</td><td>B2.2.1 Installer et configurer des éléments d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Désactivation Secure Boot</td><td>B3.3.2 Identifier les menaces et mettre en oeuvre les défenses appropriées</td><td><span class="badge badge-b3">Bloc 3</span></td></tr><tr><td>Démarrage réseau IPv4 (PXE)</td><td>B2.2.4 Déployer une solution d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Capture et déploiement d'image disque</td><td>B1.1.4 Gérer des sauvegardes</td><td><span class="badge badge-b1">Bloc 1</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <!-- ACTIVITÉ 04 -->
+          <div class="activity-block">
+            <div class="activity-header">
+              <div class="activity-icon">📋</div>
+              <div class="activity-meta">
+                <div class="activity-num">Activité 04</div>
+                <div class="activity-name">Installation d'un interphone Castel avec alimentation PoE</div>
+              </div>
+              <a href="Stage 1/RA_interphone_Nathan Manceau.docx" class="activity-dl" download>📄 Rapport Word <span>⬇</span></a>
+              <a href="#" class="activity-dl gantt-dl" download>📊 Gantt <span>⬇</span></a>
+            </div>
+            <div class="competences-toggle" onclick="toggleComp(this)">▶ Tableau de compétences</div>
+            <div class="competences-body">
+              <table class="comp-table">
+                <thead><tr><th>Tâche réalisée</th><th>Référentiel</th><th>Bloc</th></tr></thead>
+                <tbody><tr><td>Installation équipements avec alimentation PoE</td><td>B2.2.1 Installer et configurer des éléments d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Utilisation d'un seul câble (données + électricité)</td><td>B2.1.4 Choisir les éléments nécessaires pour assurer la qualité et la disponibilité d'un service</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Test communication audio/vidéo</td><td>B2.2.3 Tester l'intégration et l'acceptation d'une solution d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Sécurisation et contrôle d'accès à distance</td><td>B3.3.2 Identifier les menaces et mettre en oeuvre les défenses appropriées</td><td><span class="badge badge-b3">Bloc 3</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <!-- ACTIVITÉ 05 -->
+          <div class="activity-block">
+            <div class="activity-header">
+              <div class="activity-icon">📋</div>
+              <div class="activity-meta">
+                <div class="activity-num">Activité 05</div>
+                <div class="activity-name">Automatisation d'un script PowerShell d'export calendrier ICS</div>
+              </div>
+              <a href="Stage 1/RA_Powershell_Nathan Manceau.docx" class="activity-dl" download>📄 Rapport Word <span>⬇</span></a>
+              <a href="#" class="activity-dl gantt-dl" download>📊 Gantt <span>⬇</span></a>
+            </div>
+            <div class="competences-toggle" onclick="toggleComp(this)">▶ Tableau de compétences</div>
+            <div class="competences-body">
+              <table class="comp-table">
+                <thead><tr><th>Tâche réalisée</th><th>Référentiel</th><th>Bloc</th></tr></thead>
+                <tbody><tr><td>Encapsulation du script PowerShell dans un .bat</td><td>B1.2.1 Traiter des demandes concernant les services réseau et système, applicatifs</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Configuration tâche planifiée avec privilèges maximum</td><td>B1.5.1 Déployer un service</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Ajout de logs (Start-Transcript / Stop-Transcript)</td><td>B1.2.3 Collecter, suivre et orienter des demandes</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Correction des permissions du dossier C:/script</td><td>B1.1.2 Mettre en place et vérifier les niveaux d'habilitation associés à un service</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Résolution d'incident (espace dans nom fichier + droits)</td><td>B2.3.4 Identifier, qualifier, évaluer et réagir face à un incident ou un problème</td><td><span class="badge badge-b2">Bloc 2</span></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <!-- ACTIVITÉ 06 -->
+          <div class="activity-block">
+            <div class="activity-header">
+              <div class="activity-icon">📋</div>
+              <div class="activity-meta">
+                <div class="activity-num">Activité 06</div>
+                <div class="activity-name">Installation et supervision avec Zabbix</div>
+              </div>
+              <a href="Stage 1/RA_Zabbix_ManceauNathan1.docx" class="activity-dl" download>📄 Rapport Word <span>⬇</span></a>
+              <a href="#" class="activity-dl gantt-dl" download>📊 Gantt <span>⬇</span></a>
+            </div>
+            <div class="competences-toggle" onclick="toggleComp(this)">▶ Tableau de compétences</div>
+            <div class="competences-body">
+              <table class="comp-table">
+                <thead><tr><th>Tâche réalisée</th><th>Référentiel</th><th>Bloc</th></tr></thead>
+                <tbody><tr><td>Installation et configuration du serveur Zabbix</td><td>B2.2.1 Installer et configurer des éléments d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Surveillance des métriques système (CPU, RAM, disque, réseau)</td><td>B2.3.4 Identifier, qualifier, évaluer et réagir face à un incident ou un problème</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Configuration d'alertes par seuil</td><td>B1.1.5 Vérifier les conditions de la continuité d'un service informatique</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Création de tableaux de bord personnalisés</td><td>B2.3.3 Gérer des indicateurs et des fichiers d'activité des éléments d'une infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Détection proactive des pannes et supervision</td><td>B3.4.1 Caractériser les risques liés à l'utilisation malveillante d'un service informatique</td><td><span class="badge badge-b3">Bloc 3</span></td></tr></tbody>
               </table>
             </div>
           </div>
@@ -836,13 +826,16 @@
         </div>
       </div>
     </div>
+
+  </div>
 </main>
 
 <script>
   function toggleComp(el) {
-    el.classList.toggle("open");
-    el.nextElementSibling.classList.toggle("open");
+    el.classList.toggle('open');
+    el.nextElementSibling.classList.toggle('open');
   }
 </script>
+
 </body>
 </html>

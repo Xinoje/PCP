@@ -281,6 +281,7 @@
 
   .badge-b1 { background: rgba(13,183,237,0.12); color: var(--docker-blue); border: 1px solid rgba(13,183,237,0.2); }
   .badge-b2 { background: rgba(61,220,132,0.12); color: #3ddc84; border: 1px solid rgba(61,220,132,0.2); }
+  .badge-b3 { background: rgba(255,170,68,0.12); color: #ffaa44; border: 1px solid rgba(255,170,68,0.2); }
   .badge-todo { background: rgba(138,180,204,0.08); color: var(--docker-grey); border: 1px dashed rgba(138,180,204,0.2); font-style: italic; }
 
   .note {
@@ -364,7 +365,7 @@
     background: rgba(13,183,237,0.03);
   }
 
-  .activity-header {
+  .activity-header { flex-wrap: wrap; row-gap: 8px; 
     display: flex; align-items: center; gap: 14px;
     padding: 14px 18px;
     border-bottom: 1px solid var(--docker-border);
@@ -393,6 +394,9 @@
     transition: all 0.2s ease;
     flex-shrink: 0;
   }
+
+  .gantt-dl { background: rgba(61,220,132,0.08); border-color: rgba(61,220,132,0.25); color: #3ddc84; }
+  .gantt-dl:hover { background: rgba(61,220,132,0.18); border-color: rgba(61,220,132,0.5); color: var(--white); }
 
   .activity-dl:hover {
     background: rgba(13,183,237,0.18);
@@ -542,7 +546,7 @@
           <div class="cv-file-size">Prêt à télécharger</div>
         </div>
       </div>
-      <a href="#" class="cv-download-btn" download>⬇ Télécharger le CV</a>
+      <a href="CV_Nathan_Manceau.pdf" class="cv-download-btn" download>⬇ Télécharger le CV</a>
     </div>
   </div>
 </aside>
@@ -703,133 +707,43 @@
         <span class="section-title">Productions & livrables</span>
       </div>
       <div class="section-body">
-        <div class="activities-list">
+                <div class="activities-list">
 
-          <!-- ACTIVITÉ 1 -->
+          <!-- ACTIVITÉ 01 -->
           <div class="activity-block">
             <div class="activity-header">
               <div class="activity-icon">📋</div>
               <div class="activity-meta">
                 <div class="activity-num">Activité 01</div>
-                <div class="activity-name">À remplir — nom de l'activité</div>
+                <div class="activity-name">Installation et configuration d'un client VPN WireGuard pour le télétravail</div>
               </div>
-              <a href="#" class="activity-dl" download title="Télécharger le rapport">
-                📄 Rapport Word <span>⬇</span>
-              </a>
+              <a href="Stage 2/wireguard.docx" class="activity-dl" download>📄 Rapport Word <span>⬇</span></a>
+              <a href="#" class="activity-dl gantt-dl" download>📊 Gantt <span>⬇</span></a>
             </div>
-            <div class="competences-toggle" onclick="toggleComp(this)">
-              ▶ Tableau de compétences
-            </div>
+            <div class="competences-toggle" onclick="toggleComp(this)">▶ Tableau de compétences</div>
             <div class="competences-body">
               <table class="comp-table">
-                <thead>
-                  <tr>
-                    <th>Tâche réalisée</th>
-                    <th>Compétence BTS SIO SISR</th>
-                    <th>Bloc</th>
-                    <th>Barème</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b1">B1</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b2">B2</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
+                <thead><tr><th>Tâche réalisée</th><th>Référentiel</th><th>Bloc</th></tr></thead>
+                <tbody><tr><td>Installation du client WireGuard sur poste utilisateur</td><td>B1.5.1 Déployer un service</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Importation du fichier de configuration du tunnel</td><td>B2.2.1 Installer et configurer des éléments d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Activation du tunnel et vérification de l'état de connexion</td><td>B2.3.1 Administrer sur site et à distance des éléments d'une infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Vérification des logs pour valider l'établissement du handshake</td><td>B2.3.4 Identifier, qualifier, évaluer et réagir face à un incident ou un problème</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Test d'accès aux ressources partagées (lecteurs réseau)</td><td>B3.2.1 Protéger l'identité numérique d'une organisation</td><td><span class="badge badge-b3">Bloc 3</span></td></tr><tr><td>Mise en place d'une connexion sécurisée chiffrée (tunnel VPN)</td><td>B3.4.3 Identifier les obligations légales en matière d'archivage et de protection des données</td><td><span class="badge badge-b3">Bloc 3</span></td></tr></tbody>
               </table>
             </div>
           </div>
-
-          <!-- ACTIVITÉ 2 -->
+          <!-- ACTIVITÉ 02 -->
           <div class="activity-block">
             <div class="activity-header">
               <div class="activity-icon">📋</div>
               <div class="activity-meta">
                 <div class="activity-num">Activité 02</div>
-                <div class="activity-name">À remplir — nom de l'activité</div>
+                <div class="activity-name">Mise en place d'une supervision d'infrastructure avec Prometheus et Grafana</div>
               </div>
-              <a href="#" class="activity-dl" download title="Télécharger le rapport">
-                📄 Rapport Word <span>⬇</span>
-              </a>
+              <a href="Stage 2/RA_Prometheus_NathanManceau.docx" class="activity-dl" download>📄 Rapport Word <span>⬇</span></a>
+              <a href="#" class="activity-dl gantt-dl" download>📊 Gantt <span>⬇</span></a>
             </div>
-            <div class="competences-toggle" onclick="toggleComp(this)">
-              ▶ Tableau de compétences
-            </div>
+            <div class="competences-toggle" onclick="toggleComp(this)">▶ Tableau de compétences</div>
             <div class="competences-body">
               <table class="comp-table">
-                <thead>
-                  <tr>
-                    <th>Tâche réalisée</th>
-                    <th>Compétence BTS SIO SISR</th>
-                    <th>Bloc</th>
-                    <th>Barème</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b1">B1</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b2">B2</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- ACTIVITÉ 3 -->
-          <div class="activity-block">
-            <div class="activity-header">
-              <div class="activity-icon">📋</div>
-              <div class="activity-meta">
-                <div class="activity-num">Activité 03</div>
-                <div class="activity-name">À remplir — nom de l'activité</div>
-              </div>
-              <a href="#" class="activity-dl" download title="Télécharger le rapport">
-                📄 Rapport Word <span>⬇</span>
-              </a>
-            </div>
-            <div class="competences-toggle" onclick="toggleComp(this)">
-              ▶ Tableau de compétences
-            </div>
-            <div class="competences-body">
-              <table class="comp-table">
-                <thead>
-                  <tr>
-                    <th>Tâche réalisée</th>
-                    <th>Compétence BTS SIO SISR</th>
-                    <th>Bloc</th>
-                    <th>Barème</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b1">B1</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><span class="badge badge-b2">B2</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
+                <thead><tr><th>Tâche réalisée</th><th>Référentiel</th><th>Bloc</th></tr></thead>
+                <tbody><tr><td>Configuration des fichiers prometheus.yml et snmp.yml</td><td>B2.2.1 Installer et configurer des éléments d'infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Définition des targets et des labels pour les équipements Adista</td><td>B2.1.4 Choisir les éléments nécessaires pour assurer la qualité et la disponibilité d'un service</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Relance et vérification du bon fonctionnement du snmp_exporter</td><td>B2.3.3 Gérer des indicateurs et des fichiers d'activité des éléments d'une infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Vérification du scraping via l'interface Web Prometheus (Status / Targets)</td><td>B2.3.4 Identifier, qualifier, évaluer et réagir face à un incident ou un problème</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Requête PromQL pour tester la collecte</td><td>B2.3.3 Gérer des indicateurs et des fichiers d'activité des éléments d'une infrastructure</td><td><span class="badge badge-b2">Bloc 2</span></td></tr><tr><td>Création d'un tableau de bord Grafana avec visualisation personnalisée</td><td>B1.3.3 Participer à la valorisation de l'image de l'organisation sur les médias numériques</td><td><span class="badge badge-b1">Bloc 1</span></td></tr><tr><td>Application de transformations pour l'affichage des métriques</td><td>B2.3.5 Evaluer, maintenir et améliorer la qualité d'un service</td><td><span class="badge badge-b2">Bloc 2</span></td></tr></tbody>
               </table>
             </div>
           </div>
@@ -837,13 +751,16 @@
         </div>
       </div>
     </div>
+
+  </div>
 </main>
 
 <script>
   function toggleComp(el) {
-    el.classList.toggle("open");
-    el.nextElementSibling.classList.toggle("open");
+    el.classList.toggle('open');
+    el.nextElementSibling.classList.toggle('open');
   }
 </script>
+
 </body>
 </html>
