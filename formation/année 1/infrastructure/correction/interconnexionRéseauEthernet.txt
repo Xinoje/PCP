@@ -1,0 +1,14 @@
+Q1. Il applique pour cela son masque de sous-réseau à l'adresse de destination du paquet et compare le résultat à son adresse réseau. Si ce n'est pas la même il transmet le message à sa passerelle par défaut.
+
+Q2. Pour communiquer avec d'autres réseaux, un poste doit connaître au moins une
+adresse de routeur: cette adresse fait partie de la configuration du poste.
+
+C'est l'adresse de la passerelle.
+Ainsi, chaque interface réseau du routeur a une adresse IP. Sur chaque poste, on met comme adresse de passerelle par défaut, l'adresse de cette interface qui nous permettra de sortir de notre réseaux 
+
+Q3. Oui, il est nécessaire pour déterminer l'adresse matérielle de la carte réseau du routeur (passerelle) pour que le poste puisse lui adresse la paquet destiné à un autre réseau.
+
+Q4. Meilleur sécurité et bande passante
+
+Q5. Un message (les informations que l'ont veut réellement envoyer) est encapsulé dans un paquet dans lequel on écrit l'adresse IP de destination.
+
