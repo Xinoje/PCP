@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="FOG" company="" webLink="http://" view-date="2026-03-17" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3312" locale="fr_FR">
+    <description><![CDATA[Le déploiement de la solution FOG s'est étalé sur 6 jours ouvrables, du 4 juin au 12 juin.]]></description>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="200" order="0"/>
+        <field id="tpd4" name="Date de début" width="75" order="1"/>
+        <field id="tpd5" name="Date de fin" width="75" order="2"/>
+        <field id="tpd15" name="Notes" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#ffffcc #ffccff #ffffff]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="e4c7209fa50749c8916238ea634ed1ce" name="Accès BIOS et configuration démarrage PXE" meeting="false" start="2025-06-04" duration="2" complete="0" expand="true">
+            <notes><![CDATA[ L'accès au BIOS et la configuration de l'ordre de démarrage PXE ont préparé les machines clientes]]></notes>
+        </task>
+        <task id="1" uid="533b1336665d4798a3566c554b94c68e" name="Désactivation Secure Boot" meeting="false" start="2025-06-05" duration="2" complete="0" expand="true">
+            <notes><![CDATA[La désactivation du Secure Boot a été nécessaire pour autoriser le démarrage réseau.]]></notes>
+        </task>
+        <task id="2" uid="54b54080707f4f7dac37ddb96ceeae9e" name="Démarrage sur ONBOARD NIC (IPv4)" meeting="false" start="2025-06-06" duration="2" complete="0" expand="true">
+            <notes><![CDATA[Le démarrage sur ONBOARD NIC (IPv4) a permis de lancer le processus PXE.]]></notes>
+        </task>
+        <task id="3" uid="9f190a5f43634c08904f49c21d1fbf19" name="Capture de l’image modèle" meeting="false" start="2025-06-09" duration="2" complete="0" expand="true">
+            <notes><![CDATA[La capture de l'image modèle depuis un ordinateur de référence a été réalisée.]]></notes>
+        </task>
+        <task id="4" uid="515385253c804ecaa4ed605d0d6a761f" name="Déploiement sur machines cibles" meeting="false" start="2025-06-10" duration="3" complete="0" expand="true">
+            <notes><![CDATA[Le déploiement de l'image sur l'ensemble des machines cibles a conclu l'activité.]]></notes>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>

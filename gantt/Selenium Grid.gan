@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2026-03-17" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3312" locale="fr_FR">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="200" order="0"/>
+        <field id="tpd4" name="Date de début" width="75" order="1"/>
+        <field id="tpd5" name="Date de fin" width="75" order="2"/>
+        <field id="tpd15" name="Notes" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#ffffcc #ffccff #ffffff]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="94935698fd4642678bb7c71d762993b0" name="Connexion SSH au serveur Linux" color="#ffffff" meeting="false" start="2025-05-20" duration="1" complete="0" expand="true">
+            <notes><![CDATA[L'activité a débuté par la connexion SSH au serveur Linux pour prendre possession de l'environnement.]]></notes>
+        </task>
+        <task id="1" uid="b969d6e5a08641a093007203ac3c2e42" name="Installation Java + Selenium Grid" meeting="false" start="2025-05-21" duration="3" complete="0" expand="true">
+            <notes><![CDATA[L'installation de Java et de Selenium Grid a été réalisée, constituant le cœur technique du projet.]]></notes>
+        </task>
+        <task id="2" uid="33e2d3e8a90042439b0fc37e5d622f69" name="Ajout du nom domaine DNS" meeting="false" start="2025-05-23" duration="2" complete="0" expand="true">
+            <notes><![CDATA[En parallèle, l'ajout du nom de domaine DNS a été effectué pour rendre le service accessible via un FQDN.]]></notes>
+        </task>
+        <task id="3" uid="d491c8bf460b48bba195585fc650a78a" name="Configuration proxy Apache (mod_proxy)" color="#ffccff" meeting="false" start="2025-05-26" duration="3" complete="0" expand="true">
+            <notes><![CDATA[La configuration du proxy Apache avec mod_proxy a nécessité 2 jours, incluant la mise en place du reverse proxy et la sécurisation HTTPS.]]></notes>
+        </task>
+        <task id="4" uid="87912100c9e84ab5ab531335b9d9b87d" name="Tests de résolution DNS et accès HTTPS" color="#ffffcc" meeting="false" start="2025-05-27" duration="2" complete="0" expand="true">
+            <notes><![CDATA[Les tests de résolution DNS et d'accès HTTPS ont validé le bon fonctionnement réseau.]]></notes>
+        </task>
+        <task id="5" uid="ab29f5ae1c77464d912d398f7e189b5f" name="Validation avec interface Grid" meeting="false" start="2025-05-28" duration="2" complete="0" expand="true">
+            <notes><![CDATA[La validation finale avec l'interface Graphique de Selenium Grid a confirmé la bonne installation.]]></notes>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
