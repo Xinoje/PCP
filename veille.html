@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathan Manceau — Veille</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --docker-dark:   #0d1b2a;
+    --docker-navy:   #0f2a44;
+    --docker-blue:   #0db7ed;
+    --docker-light:  #e8f6fd;
+    --docker-grey:   #8ab4cc;
+    --docker-border: rgba(13,183,237,0.18);
+    --white:         #ffffff;
+
+    --tag-secu:   #ff6b6b;
+    --tag-réseau: #0db7ed;
+    --tag-dev:    #3ddc84;
+    --tag-sys:    #ffaa44;
+    --tag-ia:     #c792ea;
+    --tag-autre:  #8ab4cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--docker-dark);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--docker-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--docker-border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none; z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -120px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(13,183,237,0.10) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 280px;
+    background: rgba(15,42,68,0.85);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid var(--docker-border);
+    display: flex; flex-direction: column;
+    padding: 40px 28px; z-index: 10;
+  }
+
+  .sidebar-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 48px; cursor: pointer; }
+  .whale-icon { width: 36px; height: 36px; flex-shrink: 0; }
+  .sidebar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--docker-blue); letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3; }
+
+  .nav-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; }
+  .nav-buttons { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px; border: 1px solid var(--docker-border);
+    border-radius: 8px; background: rgba(13,183,237,0.04);
+    color: var(--docker-light); font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: all 0.22s ease;
+    position: relative; overflow: hidden;
+  }
+  .nav-btn::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--docker-blue); transform: scaleY(0); transition: transform 0.22s ease; border-radius: 0 2px 2px 0; }
+  .nav-btn:hover { background: rgba(13,183,237,0.12); border-color: rgba(13,183,237,0.45); color: var(--white); transform: translateX(4px); }
+  .nav-btn:hover::before { transform: scaleY(1); }
+  .nav-btn.active { background: rgba(13,183,237,0.15); border-color: rgba(13,183,237,0.5); color: var(--white); }
+  .nav-btn.active::before { transform: scaleY(1); }
+  .nav-btn .btn-icon { font-size: 18px; flex-shrink: 0; }
+  .nav-btn .btn-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--docker-blue); margin-left: auto; opacity: 0.7; }
+
+  .cv-section { margin-top: auto; padding-top: 28px; border-top: 1px solid var(--docker-border); }
+  .cv-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 14px; }
+  .cv-card { background: rgba(13,183,237,0.07); border: 1px solid rgba(13,183,237,0.3); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .cv-file { display: flex; align-items: center; gap: 10px; }
+  .cv-file-icon { width: 36px; height: 36px; background: rgba(13,183,237,0.15); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .cv-file-info { flex: 1; }
+  .cv-file-name { font-size: 0.78rem; font-weight: 600; color: var(--white); }
+  .cv-file-size { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); }
+  .cv-download-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; background: var(--docker-blue); color: var(--docker-dark); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.2s ease; }
+  .cv-download-btn:hover { background: #30ccf5; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,183,237,0.35); }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 280px; flex: 1;
+    padding: 56px 64px;
+    position: relative; z-index: 1;
+  }
+
+  .page-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .page-icon {
+    width: 52px; height: 52px;
+    background: rgba(13,183,237,0.12);
+    border: 1px solid rgba(13,183,237,0.3);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+
+  .page-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-blue); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px; }
+  .page-title { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; }
+  .page-subtitle { color: var(--docker-grey); font-size: 0.88rem; margin-top: 8px; margin-bottom: 40px; animation: fadeUp 0.5s 0.1s ease both; }
+
+  /* ── FILTRES ── */
+  .filters {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 36px;
+    animation: fadeUp 0.5s 0.15s ease both;
+  }
+
+  .filter-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; padding: 6px 14px;
+    border-radius: 20px; border: 1px solid var(--docker-border);
+    background: transparent; color: var(--docker-grey);
+    cursor: pointer; transition: all 0.2s ease;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+
+  .filter-btn:hover { border-color: var(--docker-blue); color: var(--docker-blue); }
+  .filter-btn.active { background: rgba(13,183,237,0.15); border-color: var(--docker-blue); color: var(--docker-blue); }
+
+  /* ── GRILLE CARTES ── */
+  .veille-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .veille-card {
+    background: rgba(15,42,68,0.7);
+    border: 1px solid var(--docker-border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: all 0.25s ease;
+    animation: fadeUp 0.5s ease both;
+    position: relative;
+  }
+
+  .veille-card:hover {
+    border-color: rgba(13,183,237,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  }
+
+  /* bande colorée en haut selon thème */
+  .veille-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-color, var(--docker-blue));
+  }
+
+  .card-top {
+    padding: 20px 20px 14px;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .card-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; padding: 2px 8px;
+    border-radius: 10px; text-transform: uppercase;
+    letter-spacing: 0.06em; font-weight: 500;
+    border: 1px solid;
+  }
+
+  .tag-secu   { color: var(--tag-secu);   background: rgba(255,107,107,0.1);  border-color: rgba(255,107,107,0.25); }
+  .tag-réseau { color: var(--tag-réseau); background: rgba(13,183,237,0.1);   border-color: rgba(13,183,237,0.25); }
+  .tag-dev    { color: var(--tag-dev);    background: rgba(61,220,132,0.1);   border-color: rgba(61,220,132,0.25); }
+  .tag-sys    { color: var(--tag-sys);    background: rgba(255,170,68,0.1);   border-color: rgba(255,170,68,0.25); }
+  .tag-ia     { color: var(--tag-ia);     background: rgba(199,146,234,0.1);  border-color: rgba(199,146,234,0.25); }
+  .tag-autre  { color: var(--tag-autre);  background: rgba(138,180,204,0.08); border-color: rgba(138,180,204,0.2); }
+
+  .card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+
+  .card-title {
+    font-size: 0.95rem; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .card-desc {
+    font-size: 0.78rem; color: var(--docker-grey);
+    line-height: 1.6;
+  }
+
+  .card-bottom {
+    padding: 14px 20px;
+    border-top: 1px solid var(--docker-border);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+  }
+
+  .card-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-grey);
+  }
+
+  .card-dl {
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 14px;
+    background: rgba(13,183,237,0.08);
+    border: 1px solid rgba(13,183,237,0.25);
+    border-radius: 6px;
+    color: var(--docker-blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .card-dl:hover {
+    background: rgba(13,183,237,0.18);
+    border-color: rgba(13,183,237,0.5);
+    color: var(--white);
+  }
+
+  /* carte placeholder */
+  .veille-card.placeholder {
+    border-style: dashed;
+    border-color: rgba(13,183,237,0.15);
+    opacity: 0.5;
+  }
+
+  .veille-card.placeholder:hover {
+    opacity: 0.75;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* hidden by filter */
+  .veille-card.hidden { display: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    body { flex-direction: column; }
+    .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--docker-border); padding: 20px 20px 16px; }
+    .sidebar-logo { margin-bottom: 16px; }
+    .nav-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; flex: none; }
+    .nav-btn { padding: 10px 12px; font-size: 0.82rem; }
+    .cv-section { margin-top: 16px; padding-top: 16px; }
+    .main { margin-left: 0; padding: 28px 20px 48px; }
+    .veille-grid { grid-template-columns: 1fr; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo" onclick="window.location.href='index.html'">
+    <svg class="whale-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="52" width="14" height="10" rx="2" fill="#0db7ed"/>
+      <rect x="28" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <rect x="46" y="36" width="14" height="26" rx="2" fill="#0db7ed"/>
+      <rect x="64" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <path d="M10 66 Q50 90 90 62" stroke="#0db7ed" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="80" cy="48" r="5" fill="#0db7ed"/>
+    </svg>
+    <div class="sidebar-brand">Nathan<br>Manceau</div>
+  </div>
+
+  <div class="nav-label">Navigation</div>
+  <nav class="nav-buttons">
+    <a href="stage1.html" class="nav-btn"><span class="btn-icon">🏢</span> Stage 1 <span class="btn-tag">→</span></a>
+    <a href="stage2.html" class="nav-btn"><span class="btn-icon">🏗️</span> Stage 2 <span class="btn-tag">→</span></a>
+    <a href="formation.html" class="nav-btn"><span class="btn-icon">🎓</span> Formation <span class="btn-tag">→</span></a>
+    <a href="veille.html" class="nav-btn active"><span class="btn-icon">📡</span> Veille <span class="btn-tag">→</span></a>
+  </nav>
+
+  <div class="cv-section">
+    <div class="cv-label">Curriculum Vitae</div>
+    <div class="cv-card">
+      <div class="cv-file">
+        <div class="cv-file-icon">📄</div>
+        <div class="cv-file-info">
+          <div class="cv-file-name">CV_Nathan_Manceau.pdf</div>
+          <div class="cv-file-size">Prêt à télécharger</div>
+        </div>
+      </div>
+      <a href="CV_Nathan_Manceau.pdf" class="cv-download-btn" download>⬇ Télécharger le CV</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <div class="page-header">
+    <div class="page-icon">📡</div>
+    <div>
+      <div class="page-eyebrow">// veille · technologique</div>
+      <h1 class="page-title">Veille</h1>
+    </div>
+  </div>
+
+  <p class="page-subtitle">Présentations PowerPoint réalisées dans le cadre de ma veille technologique — cliquez sur une carte pour télécharger.</p>
+
+  <!-- FILTRES -->
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterCards('all', this)">Tout</button>
+    <button class="filter-btn" onclick="filterCards('secu', this)">🔐 Cybersécurité</button>
+    <button class="filter-btn" onclick="filterCards('réseau', this)">🌐 Réseaux</button>
+    <button class="filter-btn" onclick="filterCards('sys', this)">🖥️ Systèmes</button>
+    <button class="filter-btn" onclick="filterCards('dev', this)">💻 Développement</button>
+    <button class="filter-btn" onclick="filterCards('ia', this)">🤖 IA</button>
+  </div>
+
+  <!-- GRILLE -->
+  <div class="veille-grid" id="veilleGrid">
+
+    <!-- ── EXEMPLE DE CARTE (à dupliquer et remplir) ── -->
+    <div class="veille-card" style="--card-color: var(--tag-secu);" data-tags="secu">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="card-tag tag-secu">Cybersécurité</span>
+        </div>
+        <span class="card-icon">🔐</span>
+        <div class="card-title">✏️ Titre de la veille</div>
+        <div class="card-desc">✏️ Courte description du sujet traité dans cette présentation.</div>
+      </div>
+      <div class="card-bottom">
+        <span class="card-date">✏️ mois année</span>
+        <a href="#" class="card-dl" download>📊 PowerPoint ⬇</a>
+      </div>
+    </div>
+
+    <div class="veille-card" style="--card-color: var(--tag-réseau);" data-tags="réseau">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="card-tag tag-réseau">Réseaux</span>
+        </div>
+        <span class="card-icon">🌐</span>
+        <div class="card-title">✏️ Titre de la veille</div>
+        <div class="card-desc">✏️ Courte description du sujet traité dans cette présentation.</div>
+      </div>
+      <div class="card-bottom">
+        <span class="card-date">✏️ mois année</span>
+        <a href="#" class="card-dl" download>📊 PowerPoint ⬇</a>
+      </div>
+    </div>
+
+    <div class="veille-card" style="--card-color: var(--tag-sys);" data-tags="sys">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="card-tag tag-sys">Systèmes</span>
+        </div>
+        <span class="card-icon">🖥️</span>
+        <div class="card-title">✏️ Titre de la veille</div>
+        <div class="card-desc">✏️ Courte description du sujet traité dans cette présentation.</div>
+      </div>
+      <div class="card-bottom">
+        <span class="card-date">✏️ mois année</span>
+        <a href="#" class="card-dl" download>📊 PowerPoint ⬇</a>
+      </div>
+    </div>
+
+    <div class="veille-card" style="--card-color: var(--tag-dev);" data-tags="dev">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="card-tag tag-dev">Développement</span>
+        </div>
+        <span class="card-icon">💻</span>
+        <div class="card-title">✏️ Titre de la veille</div>
+        <div class="card-desc">✏️ Courte description du sujet traité dans cette présentation.</div>
+      </div>
+      <div class="card-bottom">
+        <span class="card-date">✏️ mois année</span>
+        <a href="#" class="card-dl" download>📊 PowerPoint ⬇</a>
+      </div>
+    </div>
+
+    <div class="veille-card" style="--card-color: var(--tag-ia);" data-tags="ia">
+      <div class="card-top">
+        <div class="card-tags">
+          <span class="card-tag tag-ia">IA</span>
+        </div>
+        <span class="card-icon">🤖</span>
+        <div class="card-title">✏️ Titre de la veille</div>
+        <div class="card-desc">✏️ Courte description du sujet traité dans cette présentation.</div>
+      </div>
+      <div class="card-bottom">
+        <span class="card-date">✏️ mois année</span>
+        <a href="#" class="card-dl" download>📊 PowerPoint ⬇</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  function filterCards(tag, btn) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Show/hide cards
+    document.querySelectorAll('.veille-card').forEach(card => {
+      if (tag === 'all') {
+        card.classList.remove('hidden');
+      } else {
+        const tags = card.dataset.tags || '';
+        tags.includes(tag) ? card.classList.remove('hidden') : card.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
