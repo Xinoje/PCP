@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathan Manceau — Documents</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --docker-dark:   #0d1b2a;
+    --docker-navy:   #0f2a44;
+    --docker-blue:   #0db7ed;
+    --docker-light:  #e8f6fd;
+    --docker-grey:   #8ab4cc;
+    --docker-border: rgba(13,183,237,0.18);
+    --white:         #ffffff;
+    --green:         #3ddc84;
+    --orange:        #ffaa44;
+    --purple:        #c792ea;
+    --red:           #ff6b6b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--docker-dark);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--docker-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--docker-border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none; z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -120px; left: 50%; transform: translateX(-50%);
+    width: 900px; height: 500px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(13,183,237,0.10) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 280px;
+    background: rgba(15,42,68,0.85); backdrop-filter: blur(12px);
+    border-right: 1px solid var(--docker-border);
+    display: flex; flex-direction: column;
+    padding: 40px 28px; z-index: 10;
+  }
+
+  .sidebar-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 48px; cursor: pointer; }
+  .whale-icon { width: 36px; height: 36px; flex-shrink: 0; }
+  .sidebar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--docker-blue); letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3; }
+
+  .nav-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; }
+  .nav-buttons { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px; border: 1px solid var(--docker-border);
+    border-radius: 8px; background: rgba(13,183,237,0.04);
+    color: var(--docker-light); font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: all 0.22s ease;
+    position: relative; overflow: hidden;
+  }
+  .nav-btn::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--docker-blue); transform: scaleY(0); transition: transform 0.22s ease; border-radius: 0 2px 2px 0; }
+  .nav-btn:hover { background: rgba(13,183,237,0.12); border-color: rgba(13,183,237,0.45); color: var(--white); transform: translateX(4px); }
+  .nav-btn:hover::before { transform: scaleY(1); }
+  .nav-btn.active { background: rgba(13,183,237,0.15); border-color: rgba(13,183,237,0.5); color: var(--white); }
+  .nav-btn.active::before { transform: scaleY(1); }
+  .nav-btn .btn-icon { font-size: 18px; flex-shrink: 0; }
+  .nav-btn .btn-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--docker-blue); margin-left: auto; opacity: 0.7; }
+
+  .cv-section { margin-top: auto; padding-top: 28px; border-top: 1px solid var(--docker-border); }
+  .cv-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 14px; }
+  .cv-card { background: rgba(13,183,237,0.07); border: 1px solid rgba(13,183,237,0.3); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .cv-file { display: flex; align-items: center; gap: 10px; }
+  .cv-file-icon { width: 36px; height: 36px; background: rgba(13,183,237,0.15); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .cv-file-info { flex: 1; }
+  .cv-file-name { font-size: 0.78rem; font-weight: 600; color: var(--white); }
+  .cv-file-size { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); }
+  .cv-download-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; background: var(--docker-blue); color: var(--docker-dark); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.2s ease; }
+  .cv-download-btn:hover { background: #30ccf5; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,183,237,0.35); }
+
+  /* ── MAIN ── */
+  .main { margin-left: 280px; flex: 1; padding: 56px 64px; position: relative; z-index: 1; }
+
+  .page-header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; animation: fadeUp 0.5s ease both; }
+  .page-icon { width: 52px; height: 52px; background: rgba(13,183,237,0.12); border: 1px solid rgba(13,183,237,0.3); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .page-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-blue); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px; }
+  .page-title { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; }
+  .page-subtitle { color: var(--docker-grey); font-size: 0.88rem; margin-top: 8px; margin-bottom: 48px; animation: fadeUp 0.5s 0.1s ease both; }
+
+  /* ── SECTIONS ── */
+  .doc-sections { display: flex; flex-direction: column; gap: 32px; }
+
+  .doc-section {
+    background: rgba(15,42,68,0.6);
+    border: 1px solid var(--docker-border);
+    border-radius: 12px; overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+  }
+  .doc-section:nth-child(1) { animation-delay: 0.1s; }
+  .doc-section:nth-child(2) { animation-delay: 0.2s; }
+  .doc-section:nth-child(3) { animation-delay: 0.3s; }
+  .doc-section:nth-child(4) { animation-delay: 0.4s; }
+
+  .doc-section-head {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--docker-border);
+    background: rgba(13,183,237,0.04);
+  }
+
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-blue); background: rgba(13,183,237,0.12); border: 1px solid rgba(13,183,237,0.25); border-radius: 4px; padding: 2px 8px; flex-shrink: 0; }
+  .section-title { font-size: 0.95rem; font-weight: 700; }
+  .section-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); margin-left: auto; }
+
+  /* bande couleur gauche */
+  .doc-section { border-left: 3px solid var(--section-color, var(--docker-blue)); }
+
+  .doc-list { padding: 16px 24px; display: flex; flex-direction: column; gap: 8px; }
+
+  .doc-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: rgba(13,183,237,0.03);
+    border: 1px solid var(--docker-border);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    position: relative; overflow: hidden;
+  }
+
+  .doc-item::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--section-color, var(--docker-blue));
+    transform: scaleY(0); transition: transform 0.2s ease;
+  }
+
+  .doc-item:hover { border-color: rgba(13,183,237,0.3); background: rgba(13,183,237,0.06); }
+  .doc-item:hover::before { transform: scaleY(1); }
+
+  .doc-item-icon { font-size: 18px; flex-shrink: 0; }
+
+  .doc-item-info { flex: 1; min-width: 0; }
+  .doc-item-name { font-size: 0.88rem; font-weight: 600; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .doc-item-desc { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); margin-top: 2px; }
+
+  .doc-item-ext {
+    font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+    padding: 2px 7px; border-radius: 4px;
+    text-transform: uppercase; flex-shrink: 0;
+  }
+  .ext-pdf  { color: var(--red);    background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2); }
+  .ext-docx { color: var(--docker-blue); background: rgba(13,183,237,0.08); border: 1px solid rgba(13,183,237,0.2); }
+  .ext-xlsx { color: var(--green);  background: rgba(61,220,132,0.08); border: 1px solid rgba(61,220,132,0.2); }
+
+  .doc-dl {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 14px;
+    background: rgba(13,183,237,0.08);
+    border: 1px solid rgba(13,183,237,0.25);
+    border-radius: 6px;
+    color: var(--docker-blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    text-decoration: none; white-space: nowrap;
+    transition: all 0.2s ease; flex-shrink: 0;
+  }
+  .doc-dl:hover { background: rgba(13,183,237,0.18); border-color: rgba(13,183,237,0.5); color: var(--white); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    body { flex-direction: column; }
+    .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--docker-border); padding: 20px 20px 16px; }
+    .sidebar-logo { margin-bottom: 16px; }
+    .nav-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; flex: none; }
+    .nav-btn { padding: 10px 12px; font-size: 0.82rem; }
+    .cv-section { margin-top: 16px; padding-top: 16px; }
+    .main { margin-left: 0; padding: 28px 20px 48px; }
+    .doc-item { flex-wrap: wrap; }
+    .doc-item-name { font-size: 0.82rem; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo" onclick="window.location.href='index.html'">
+    <svg class="whale-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="52" width="14" height="10" rx="2" fill="#0db7ed"/>
+      <rect x="28" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <rect x="46" y="36" width="14" height="26" rx="2" fill="#0db7ed"/>
+      <rect x="64" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
+      <path d="M10 66 Q50 90 90 62" stroke="#0db7ed" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="80" cy="48" r="5" fill="#0db7ed"/>
+    </svg>
+    <div class="sidebar-brand">Nathan<br>Manceau</div>
+  </div>
+
+  <div class="nav-label">Navigation</div>
+  <nav class="nav-buttons">
+    <a href="stage1.html" class="nav-btn"><span class="btn-icon">🏢</span> Stage 1 <span class="btn-tag">→</span></a>
+    <a href="stage2.html" class="nav-btn"><span class="btn-icon">🏗️</span> Stage 2 <span class="btn-tag">→</span></a>
+    <a href="formation.html" class="nav-btn"><span class="btn-icon">🎓</span> Formation <span class="btn-tag">→</span></a>
+    <a href="veille.html" class="nav-btn"><span class="btn-icon">📡</span> Veille <span class="btn-tag">→</span></a>
+    <a href="documents.html" class="nav-btn active"><span class="btn-icon">📁</span> Documents <span class="btn-tag">→</span></a>
+  </nav>
+
+  <div class="cv-section">
+    <div class="cv-label">Curriculum Vitae</div>
+    <div class="cv-card">
+      <div class="cv-file">
+        <div class="cv-file-icon">📄</div>
+        <div class="cv-file-info">
+          <div class="cv-file-name">CV_Nathan_Manceau.pdf</div>
+          <div class="cv-file-size">Prêt à télécharger</div>
+        </div>
+      </div>
+      <a href="CV_Nathan_Manceau.pdf" class="cv-download-btn" download>⬇ Télécharger le CV</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <div class="page-header">
+    <div class="page-icon">📁</div>
+    <div>
+      <div class="page-eyebrow">// documents · importants</div>
+      <h1 class="page-title">Documents</h1>
+    </div>
+  </div>
+  <p class="page-subtitle">Tous les documents officiels liés à mon parcours BTS SIO SISR.</p>
+
+  <div class="doc-sections">
+
+    <!-- 01 — DOSSIER E6 -->
+    <div class="doc-section" style="--section-color: var(--purple);">
+      <div class="doc-section-head">
+        <span class="section-num">01</span>
+        <span class="section-title">Dossier E6 — Présentation BTS</span>
+        <span class="section-count">1 document</span>
+      </div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="doc-item-icon">📘</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">✏️ Dossier E6 — Nathan Manceau</div>
+            <div class="doc-item-desc">Dossier de présentation pour l'épreuve E6 du BTS SIO</div>
+          </div>
+          <span class="doc-item-ext ext-pdf">pdf</span>
+          <a href="#" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 — ATTESTATIONS DE STAGE -->
+    <div class="doc-section" style="--section-color: var(--green);">
+      <div class="doc-section-head">
+        <span class="section-num">02</span>
+        <span class="section-title">Attestations de stage</span>
+        <span class="section-count">2 documents</span>
+      </div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="doc-item-icon">📄</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">Attestation de stage — Stage 1</div>
+            <div class="doc-item-desc">Mairie de Fougères · mai – juillet 2024</div>
+          </div>
+          <span class="doc-item-ext ext-pdf">pdf</span>
+          <a href="#" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-item-icon">📄</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">Attestation de stage — Stage 2</div>
+            <div class="doc-item-desc">Fougères Agglomération · ✏️ dates à compléter</div>
+          </div>
+          <span class="doc-item-ext ext-pdf">pdf</span>
+          <a href="#" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 — TABLEAU DE SYNTHÈSE -->
+    <div class="doc-section" style="--section-color: var(--orange);">
+      <div class="doc-section-head">
+        <span class="section-num">03</span>
+        <span class="section-title">Tableau de synthèse</span>
+        <span class="section-count">1 document</span>
+      </div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="doc-item-icon">📊</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">✏️ Tableau de synthèse — Nathan Manceau</div>
+            <div class="doc-item-desc">Récapitulatif des compétences acquises durant le BTS SIO SISR</div>
+          </div>
+          <span class="doc-item-ext ext-docx">docx</span>
+          <a href="#" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 — COMPTES RENDUS D'ACTIVITÉS -->
+    <div class="doc-section" style="--section-color: var(--docker-blue);">
+      <div class="doc-section-head">
+        <span class="section-num">04</span>
+        <span class="section-title">Comptes rendus d'activités</span>
+        <span class="section-count">8 documents</span>
+      </div>
+      <div class="doc-list">
+
+        <!-- Stage 1 -->
+        <div class="doc-item">
+          <div class="doc-item-icon">📝</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">CRA — Selenium Grid</div>
+            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
+          </div>
+          <span class="doc-item-ext ext-docx">docx</span>
+          <a href="Stage 1/RA_Selenium_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-item-icon">📝</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">CRA — PowerShell fond d'écran dynamique</div>
+            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
+          </div>
+          <span class="doc-item-ext ext-docx">docx</span>
+          <a href="Stage 1/RA_ Affichage_de_données_système_sur_des_serveurs_via_PowerShell_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-item-icon">📝</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">CRA — Image FOG</div>
+            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
+          </div>
+          <span class="doc-item-ext ext-docx">docx</span>
+          <a href="Stage 1/RA_Image Fog_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-item-icon">📝</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">CRA — Interphone Castel</div>
+            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
+          </div>
+          <span class="doc-item-ext ext-docx">docx</span>
+          <a href="Stage 1/RA_interphone_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-item-icon">📝</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">CRA — PowerShell planificateur</div>
+            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
+          </div>
+          <span class="doc-item-ext ext-docx">docx</span>
+          <a href="Stage 1/RA_Powershell_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-item-icon">📝</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">CRA — Zabbix</div>
+            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
+          </div>
+          <span class="doc-item-ext ext-docx">docx</span>
+          <a href="Stage 1/RA_Zabbix_ManceauNathan1.docx" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-item-icon">📝</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">CRA — WireGuard</div>
+            <div class="doc-item-desc">Stage 2 · Fougères Agglomération</div>
+          </div>
+          <span class="doc-item-ext ext-docx">docx</span>
+          <a href="Stage 2/wireguard.docx" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+        <div class="doc-item">
+          <div class="doc-item-icon">📝</div>
+          <div class="doc-item-info">
+            <div class="doc-item-name">CRA — Prometheus & Grafana</div>
+            <div class="doc-item-desc">Stage 2 · Fougères Agglomération</div>
+          </div>
+          <span class="doc-item-ext ext-docx">docx</span>
+          <a href="Stage 2/RA_Prometheus_NathanManceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>
