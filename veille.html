@@ -3,24 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nathan Manceau — Veille</title>
+<title>Nathan Manceau — Formation</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --docker-dark:   #0d1b2a;
     --docker-navy:   #0f2a44;
     --docker-blue:   #0db7ed;
+    --docker-mid:    #1d6fa4;
     --docker-light:  #e8f6fd;
     --docker-grey:   #8ab4cc;
     --docker-border: rgba(13,183,237,0.18);
     --white:         #ffffff;
-
-    --tag-secu:   #ff6b6b;
-    --tag-réseau: #0db7ed;
-    --tag-dev:    #3ddc84;
-    --tag-sys:    #ffaa44;
-    --tag-ia:     #c792ea;
-    --tag-autre:  #8ab4cc;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -57,31 +51,61 @@
 
   /* ── SIDEBAR ── */
   .sidebar {
-    position: fixed; left: 0; top: 0; bottom: 0; width: 280px;
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 280px;
     background: rgba(15,42,68,0.85);
     backdrop-filter: blur(12px);
     border-right: 1px solid var(--docker-border);
     display: flex; flex-direction: column;
-    padding: 40px 28px; z-index: 10;
+    padding: 40px 28px;
+    z-index: 10;
   }
 
-  .sidebar-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 48px; cursor: pointer; }
-  .whale-icon { width: 36px; height: 36px; flex-shrink: 0; }
-  .sidebar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--docker-blue); letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3; }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 48px;
+    cursor: pointer;
+  }
 
-  .nav-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; }
+  .whale-icon { width: 36px; height: 36px; flex-shrink: 0; }
+
+  .sidebar-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--docker-blue);
+    letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3;
+  }
+
+  .nav-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--docker-grey);
+    text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px;
+  }
+
   .nav-buttons { display: flex; flex-direction: column; gap: 10px; flex: 1; }
 
   .nav-btn {
     display: flex; align-items: center; gap: 14px;
-    padding: 14px 18px; border: 1px solid var(--docker-border);
-    border-radius: 8px; background: rgba(13,183,237,0.04);
-    color: var(--docker-light); font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.92rem; font-weight: 600; cursor: pointer;
-    text-decoration: none; transition: all 0.22s ease;
+    padding: 14px 18px;
+    border: 1px solid var(--docker-border);
+    border-radius: 8px;
+    background: rgba(13,183,237,0.04);
+    color: var(--docker-light);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.22s ease;
     position: relative; overflow: hidden;
   }
-  .nav-btn::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--docker-blue); transform: scaleY(0); transition: transform 0.22s ease; border-radius: 0 2px 2px 0; }
+
+  .nav-btn::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--docker-blue);
+    transform: scaleY(0); transition: transform 0.22s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
   .nav-btn:hover { background: rgba(13,183,237,0.12); border-color: rgba(13,183,237,0.45); color: var(--white); transform: translateX(4px); }
   .nav-btn:hover::before { transform: scaleY(1); }
   .nav-btn.active { background: rgba(13,183,237,0.15); border-color: rgba(13,183,237,0.5); color: var(--white); }
@@ -102,14 +126,16 @@
 
   /* ── MAIN ── */
   .main {
-    margin-left: 280px; flex: 1;
+    margin-left: 280px;
+    flex: 1;
     padding: 56px 64px;
-    position: relative; z-index: 1;
+    position: relative;
+    z-index: 1;
   }
 
   .page-header {
     display: flex; align-items: center; gap: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 48px;
     animation: fadeUp 0.5s ease both;
   }
 
@@ -122,172 +148,269 @@
     font-size: 24px; flex-shrink: 0;
   }
 
-  .page-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-blue); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px; }
-  .page-title { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; }
-  .page-subtitle { color: var(--docker-grey); font-size: 0.88rem; margin-top: 8px; margin-bottom: 40px; animation: fadeUp 0.5s 0.1s ease both; }
-
-  /* ── FILTRES ── */
-  .filters {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-bottom: 36px;
-    animation: fadeUp 0.5s 0.15s ease both;
-  }
-
-  .filter-btn {
+  .page-eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; padding: 6px 14px;
-    border-radius: 20px; border: 1px solid var(--docker-border);
-    background: transparent; color: var(--docker-grey);
-    cursor: pointer; transition: all 0.2s ease;
-    text-transform: uppercase; letter-spacing: 0.06em;
+    font-size: 10px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px;
   }
 
-  .filter-btn:hover { border-color: var(--docker-blue); color: var(--docker-blue); }
-  .filter-btn.active { background: rgba(13,183,237,0.15); border-color: var(--docker-blue); color: var(--docker-blue); }
+  .page-title { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; }
 
-  /* ── GRILLE CARTES ── */
-  .veille-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+  /* ── EXPLORER ── */
+  .explorer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
-  .veille-card {
-    background: rgba(15,42,68,0.7);
+  /* Année bloc */
+  .year-block {
+    background: rgba(15,42,68,0.6);
     border: 1px solid var(--docker-border);
     border-radius: 12px;
     overflow: hidden;
-    display: flex; flex-direction: column;
-    transition: all 0.25s ease;
     animation: fadeUp 0.5s ease both;
-    position: relative;
   }
 
-  .veille-card:hover {
-    border-color: rgba(13,183,237,0.4);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  .year-block:nth-child(1) { animation-delay: 0.1s; }
+  .year-block:nth-child(2) { animation-delay: 0.2s; }
+
+  .year-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 24px;
+    background: rgba(13,183,237,0.06);
+    border-bottom: 1px solid var(--docker-border);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
   }
 
-  /* bande colorée en haut selon thème */
-  .veille-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--card-color, var(--docker-blue));
-  }
+  .year-header:hover { background: rgba(13,183,237,0.1); }
 
-  .card-top {
-    padding: 20px 20px 14px;
-    flex: 1;
-  }
-
-  .card-tags {
-    display: flex; gap: 6px; flex-wrap: wrap;
-    margin-bottom: 12px;
-  }
-
-  .card-tag {
+  .year-chevron {
+    margin-left: auto;
+    color: var(--docker-blue);
+    font-size: 12px;
+    transition: transform 0.3s ease;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px; padding: 2px 8px;
-    border-radius: 10px; text-transform: uppercase;
-    letter-spacing: 0.06em; font-weight: 500;
-    border: 1px solid;
   }
 
-  .tag-secu   { color: var(--tag-secu);   background: rgba(255,107,107,0.1);  border-color: rgba(255,107,107,0.25); }
-  .tag-réseau { color: var(--tag-réseau); background: rgba(13,183,237,0.1);   border-color: rgba(13,183,237,0.25); }
-  .tag-dev    { color: var(--tag-dev);    background: rgba(61,220,132,0.1);   border-color: rgba(61,220,132,0.25); }
-  .tag-sys    { color: var(--tag-sys);    background: rgba(255,170,68,0.1);   border-color: rgba(255,170,68,0.25); }
-  .tag-ia     { color: var(--tag-ia);     background: rgba(199,146,234,0.1);  border-color: rgba(199,146,234,0.25); }
-  .tag-autre  { color: var(--tag-autre);  background: rgba(138,180,204,0.08); border-color: rgba(138,180,204,0.2); }
+  .year-block.open .year-chevron { transform: rotate(90deg); }
 
-  .card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+  .year-icon {
+    width: 32px; height: 32px;
+    background: rgba(13,183,237,0.15);
+    border: 1px solid rgba(13,183,237,0.3);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
 
-  .card-title {
-    font-size: 0.95rem; font-weight: 700;
+  .year-title {
+    font-size: 1rem; font-weight: 700;
     letter-spacing: -0.01em;
-    color: var(--white);
-    line-height: 1.4;
-    margin-bottom: 8px;
   }
 
-  .card-desc {
-    font-size: 0.78rem; color: var(--docker-grey);
-    line-height: 1.6;
-  }
-
-  .card-bottom {
-    padding: 14px 20px;
-    border-top: 1px solid var(--docker-border);
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 10px;
-  }
-
-  .card-date {
+  .year-subtitle {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px; color: var(--docker-grey);
+    margin-top: 2px;
   }
 
-  .card-dl {
-    display: flex; align-items: center; gap: 6px;
-    padding: 7px 14px;
-    background: rgba(13,183,237,0.08);
-    border: 1px solid rgba(13,183,237,0.25);
+  .year-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .year-block.open .year-block.open .year-body { max-height: 2000px; }
+
+  .year-inner { padding: 20px 24px; }
+
+  /* ── FILE TREE ── */
+  .tree { font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
+
+  .tree-folder {
+    margin-bottom: 6px;
+  }
+
+  .folder-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px;
     border-radius: 6px;
-    color: var(--docker-blue);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px; font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+    color: var(--docker-light);
+  }
+
+  .folder-header:hover { background: rgba(13,183,237,0.08); }
+
+  .folder-arrow {
+    font-size: 10px; color: var(--docker-blue);
+    transition: transform 0.2s ease;
+    width: 12px; flex-shrink: 0;
+  }
+
+  .tree-folder.open .folder-arrow { transform: rotate(90deg); }
+
+  .folder-icon { font-size: 15px; flex-shrink: 0; }
+  .folder-name { flex: 1; }
+
+  .folder-badge {
+    font-size: 9px; padding: 1px 7px;
+    background: rgba(13,183,237,0.1);
+    border: 1px solid rgba(13,183,237,0.2);
+    border-radius: 10px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .folder-children {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+    margin-left: 20px;
+    border-left: 1px solid rgba(13,183,237,0.12);
+    padding-left: 12px;
+  }
+
+  .tree-folder.open .folder-children { max-height: 1000px; }
+
+  /* File item */
+  .file-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
     text-decoration: none;
-    transition: all 0.2s ease;
-    white-space: nowrap;
+    color: var(--docker-grey);
+    transition: all 0.15s;
+    font-size: 12px;
   }
 
-  .card-dl:hover {
-    background: rgba(13,183,237,0.18);
-    border-color: rgba(13,183,237,0.5);
-    color: var(--white);
+  .file-item:hover {
+    background: rgba(13,183,237,0.08);
+    color: var(--docker-light);
   }
 
-  /* carte placeholder */
-  .veille-card.placeholder {
-    border-style: dashed;
-    border-color: rgba(13,183,237,0.15);
-    opacity: 0.5;
+  .file-icon { font-size: 13px; flex-shrink: 0; }
+  .file-name { flex: 1; }
+
+  .file-dl {
+    font-size: 11px; color: var(--docker-blue);
+    opacity: 0; transition: opacity 0.15s;
   }
 
-  .veille-card.placeholder:hover {
-    opacity: 0.75;
-    transform: none;
-    box-shadow: none;
+  .file-item:hover .file-dl { opacity: 1; }
+
+  .file-type {
+    font-size: 9px; color: var(--docker-grey);
+    background: rgba(138,180,204,0.08);
+    border: 1px solid rgba(138,180,204,0.15);
+    border-radius: 4px; padding: 1px 6px;
+    text-transform: uppercase;
   }
 
-  /* hidden by filter */
-  .veille-card.hidden { display: none; }
+  .file-type.pdf  { color: #ff6b6b; background: rgba(255,107,107,0.08); border-color: rgba(255,107,107,0.2); }
+  .file-type.docx { color: #4da6ff; background: rgba(77,166,255,0.08); border-color: rgba(77,166,255,0.2); }
+  .file-type.pptx { color: #ffaa44; background: rgba(255,170,68,0.08); border-color: rgba(255,170,68,0.2); }
+  .file-type.txt  { color: var(--docker-grey); }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    body { flex-direction: column; }
-    .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--docker-border); padding: 20px 20px 16px; }
-    .sidebar-logo { margin-bottom: 16px; }
-    .nav-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; flex: none; }
-    .nav-btn { padding: 10px 12px; font-size: 0.82rem; }
-    .cv-section { margin-top: 16px; padding-top: 16px; }
-    .main { margin-left: 0; padding: 28px 20px 48px; }
-    .veille-grid { grid-template-columns: 1fr; }
+  /* Placeholder file */
+  .file-item.placeholder {
+    color: rgba(138,180,204,0.35);
+    font-style: italic;
+    cursor: default;
   }
 
+  .file-item.placeholder:hover { background: none; color: rgba(138,180,204,0.35); }
+  .file-item.placeholder .file-dl { display: none; }
+
+  /* Tree root label */
+  .tree-root {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 12px 12px;
+    font-size: 11px; color: var(--docker-blue);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    border-bottom: 1px solid rgba(13,183,237,0.08);
+    margin-bottom: 10px;
+  }
+
+
+  .matiere-header { background: rgba(13,183,237,0.08); }
+  .matiere-header:hover { background: rgba(13,183,237,0.14); }
+  .matiere-badge { background: rgba(13,183,237,0.15); color: var(--docker-blue); border: 1px solid rgba(13,183,237,0.3); border-radius: 10px; padding: 1px 8px; font-size: 10px; margin-left: auto; }
+  .file-type.pka { color: #ffaa44; background: rgba(255,170,68,0.08); border: 1px solid rgba(255,170,68,0.2); }
+  .file-type.py  { color: #3ddc84; background: rgba(61,220,132,0.08); border: 1px solid rgba(61,220,132,0.2); }
+  .file-type.sql { color: #c792ea; background: rgba(199,146,234,0.08); border: 1px solid rgba(199,146,234,0.2); }
+  .file-type.zip { color: #ffaa44; background: rgba(255,170,68,0.08); border: 1px solid rgba(255,170,68,0.2); }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    body { flex-direction: column; }
+
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--docker-border);
+      padding: 20px 20px 16px;
+    }
+
+    .sidebar-logo { margin-bottom: 16px; }
+
+    .nav-label { margin-bottom: 10px; }
+
+    .nav-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      flex: none;
+    }
+
+    .nav-btn { padding: 10px 12px; font-size: 0.82rem; }
+
+    .cv-section {
+      margin-top: 16px;
+      padding-top: 16px;
+    }
+
+    .cv-card { flex-direction: row; align-items: center; gap: 10px; padding: 12px; }
+    .cv-file { flex: 1; }
+    .cv-download-btn { white-space: nowrap; padding: 8px 12px; }
+
+    .main {
+      margin-left: 0 !important;
+      max-width: 100% !important;
+      padding: 28px 20px 48px;
+      min-height: auto;
+    }
+
+    .page-header { margin-bottom: 28px; }
+    .page-title { font-size: 1.4rem; }
+
+    .two-col { grid-template-columns: 1fr; }
+
+    .hero-name { font-size: 2rem; }
+    .docker-stack { display: none; }
+
+    .productions-grid { grid-template-columns: 1fr; }
+
+    .table-wrap { font-size: 0.75rem; }
+    th, td { padding: 8px 10px; }
+  }
+
 </style>
 </head>
 <body>
 
 <!-- ── SIDEBAR ── -->
 <aside class="sidebar">
-  <div class="sidebar-logo" onclick="window.location.href='index.html'">
+  <div class="sidebar-logo" style="cursor:pointer;" onclick="window.location.href='index.html'">
     <svg class="whale-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="10" y="52" width="14" height="10" rx="2" fill="#0db7ed"/>
       <rect x="28" y="44" width="14" height="18" rx="2" fill="#0db7ed"/>
@@ -301,10 +424,19 @@
 
   <div class="nav-label">Navigation</div>
   <nav class="nav-buttons">
-    <a href="stage1.html" class="nav-btn"><span class="btn-icon">🏢</span> Stage 1 <span class="btn-tag">→</span></a>
-    <a href="stage2.html" class="nav-btn"><span class="btn-icon">🏗️</span> Stage 2 <span class="btn-tag">→</span></a>
-    <a href="formation.html" class="nav-btn"><span class="btn-icon">🎓</span> Formation <span class="btn-tag">→</span></a>
-    <a href="veille.html" class="nav-btn active"><span class="btn-icon">📡</span> Veille <span class="btn-tag">→</span></a>
+    <a href="stage1.html" class="nav-btn">
+      <span class="btn-icon">🏢</span> Stage 1 <span class="btn-tag">→</span>
+    </a>
+    <a href="stage2.html" class="nav-btn">
+      <span class="btn-icon">🏗️</span> Stage 2 <span class="btn-tag">→</span>
+    </a>
+    <a href="formation.html" class="nav-btn active">
+      <span class="btn-icon">🎓</span> Formation <span class="btn-tag">→</span>
+    </a>
+    <a href="veille.html" class="nav-btn">
+      <span class="btn-icon">📡</span> Veille <span class="btn-tag">→</span>
+    </a>
+    <a href="documents.html" class="nav-btn"><span class="btn-icon">📁</span> Documents <span class="btn-tag">→</span></a>
   </nav>
 
   <div class="cv-section">
@@ -326,162 +458,878 @@
 <main class="main">
 
   <div class="page-header">
-    <div class="page-icon">📡</div>
+    <div class="page-icon">🎓</div>
     <div>
-      <div class="page-eyebrow">// veille · technologique</div>
-      <h1 class="page-title">Veille</h1>
+      <div class="page-eyebrow">// formation · BTS SIO SISR</div>
+      <h1 class="page-title">Formation</h1>
     </div>
   </div>
 
-  <p class="page-subtitle">Présentations PowerPoint réalisées dans le cadre de ma veille technologique — cliquez sur une carte pour télécharger.</p>
+  <div class="explorer">
 
-  <!-- FILTRES -->
-  <div class="filters">
-    <button class="filter-btn active" onclick="filterCards('all', this)">Tout</button>
-    <button class="filter-btn" onclick="filterCards('secu', this)">🔐 Cybersécurité</button>
-    <button class="filter-btn" onclick="filterCards('réseau', this)">🌐 Réseaux</button>
-    <button class="filter-btn" onclick="filterCards('sys', this)">🖥️ Systèmes</button>
-    <button class="filter-btn" onclick="filterCards('dev', this)">💻 Développement</button>
-    <button class="filter-btn" onclick="filterCards('ia', this)">🤖 IA</button>
-  </div>
-
-  <!-- GRILLE -->
-  <div class="veille-grid" id="veilleGrid">
-
-    <!-- IA -->
-    <div class="veille-card" style="--card-color: var(--tag-ia);" data-tags="ia">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-ia">IA</span></div>
-        <div class="card-title">Selenium Grid 5.0 intègre la parallélisation IA pour les tests automatisés</div>
-        <div class="card-desc">Évolution majeure de Selenium Grid avec l'intégration de mécanismes d'IA pour la parallélisation et l'optimisation des tests.</div>
+    <!-- PREMIÈRE ANNÉE -->
+    <div class="year-block" id="year1">
+      <div class="year-header" onclick="toggleYear('year1')">
+        <div class="year-icon">📁</div>
+        <div>
+          <div class="year-title">Première année</div>
+          <div class="year-subtitle">BTS SIO SISR · 2023 – 2024</div>
+        </div>
+        <span class="year-chevron">▶</span>
       </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/Selenium Grid 5.0 intègre la parallélisation IA pour les tests automatisés.pptx" class="card-dl" download>PowerPoint ⬇</a>
+      <div class="year-body">
+        <div class="year-inner">
+          <div class="tree">
+
+            <div class="tree-root">📂 BTS_SIO / Année_1</div>
+
+            <div class="tree-folder" id="mat1">
+              <div class="folder-header matiere-header" onclick="toggleFolder('mat1')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📁</span>
+                <span class="folder-name">Cybersécurité 🔐</span>
+                <span class="folder-badge matiere-badge">10 fichiers</span>
+              </div>
+              <div class="folder-children">
+            <div class="tree-folder" id="sf1">
+              <div class="folder-header" onclick="toggleFolder('sf1')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Packet Tracer — Cyber World (1.5.3.5)</span>
+                <span class="folder-badge">(2)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/1.5.3.5/1.5.3.5%20Packet%20Tracer%20-%20Creating%20a%20Cyber%20World.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">1.5.3.5 Packet Tracer - Creating a Cyber World.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/1.5.3.5/Compte%20rendu%201.5.3.5.odt" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Compte rendu 1.5.3.5.odt</span>
+                  <span class="file-type docx">odt</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf2">
+              <div class="folder-header" onclick="toggleFolder('sf2')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Chiffrement & Intégrité (2.5.2.6 / 2.5.2.7)</span>
+                <span class="folder-badge">(2)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/2.5.2.6%202.5.2.7/2.5.2.6%20Packet%20Tracer%20-%20Exploring%20File%20and%20Data%20Encryption.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">2.5.2.6 Exploring File and Data Encryption.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/2.5.2.6%202.5.2.7/2.5.2.7%20Packet%20Tracer%20-%20Using%20File%20and%20Data%20Integrity%20Checks.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">2.5.2.7 Using File and Data Integrity Checks.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf3">
+              <div class="folder-header" onclick="toggleFolder('sf3')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Filtrage & ACL Cisco (C11)</span>
+                <span class="folder-badge">(2)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/C11_filtrage/Cisco_ACL_Exolab_Decouverte.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Cisco_ACL_Exolab_Decouverte.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/C11_filtrage/FT_Cisco_ACL.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">FT_Cisco_ACL.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf4">
+              <div class="folder-header" onclick="toggleFolder('sf4')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Sauvegarde & Restauration Linux</span>
+                <span class="folder-badge">(1)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/C09_TP02_E_sauvegardeRestaurationLinux%20%282%29.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">C09_TP02_E_sauvegardeRestaurationLinux.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf5">
+              <div class="folder-header" onclick="toggleFolder('sf5')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Résilience & Firewalls Réseau</span>
+                <span class="folder-badge">(3)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/6.2.3.8%20Packet%20Tracer%20-%20Router%20and%20Switch%20Redundancy.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">6.2.3.8 Router and Switch Redundancy.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/7.4.2.4%20Packet%20Tracer%20-%20Server%20Firewalls%20and%20Router%20ACLs.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">7.4.2.4 Server Firewalls and Router ACLs.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/Cybers%C3%A9curit%C3%A9/8.3.1.3%20Packet%20Tracer%20-%20Skills%20Integrated%20Challenge.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">8.3.1.3 Skills Integrated Challenge.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="tree-folder" id="mat2">
+              <div class="folder-header matiere-header" onclick="toggleFolder('mat2')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📁</span>
+                <span class="folder-name">Développement 💻</span>
+                <span class="folder-badge matiere-badge">12 fichiers</span>
+              </div>
+              <div class="folder-children">
+            <div class="tree-folder" id="sf6">
+              <div class="folder-header" onclick="toggleFolder('sf6')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">JavaScript — TP & Exercices</span>
+                <span class="folder-badge">(4)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/js/TP2/index.html" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">index.html (TP2)</span>
+                  <span class="file-type txt">html (tp2)</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/js/TP2/index.js" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">index.js (TP2)</span>
+                  <span class="file-type txt">js (tp2)</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/js/exercice_5/index.html" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">exercice_5 — index.html</span>
+                  <span class="file-type txt">html</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/js/exercice_6/exo%206.js" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">exercice_6 — exo 6.js</span>
+                  <span class="file-type txt">js</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf7">
+              <div class="folder-header" onclick="toggleFolder('sf7')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Python — Algorithmique</span>
+                <span class="folder-badge">(3)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/python%20dossier/OneDrive_1_02-12-2024/GetIMC.py" class="file-item" download>
+                  <span class="file-icon">🐍</span>
+                  <span class="file-name">GetIMC.py</span>
+                  <span class="file-type py">py</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/python%20dossier/OneDrive_1_02-12-2024/IsAnneeBissextile.py" class="file-item" download>
+                  <span class="file-icon">🐍</span>
+                  <span class="file-name">IsAnneeBissextile.py</span>
+                  <span class="file-type py">py</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/python%20dossier/algorithmique/fonction%20CCF.py" class="file-item" download>
+                  <span class="file-icon">🐍</span>
+                  <span class="file-name">fonction CCF.py</span>
+                  <span class="file-type py">py</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf8">
+              <div class="folder-header" onclick="toggleFolder('sf8')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">SQL — Bases de données</span>
+                <span class="folder-badge">(3)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/sql/bibliotheque.sql" class="file-item" download>
+                  <span class="file-icon">🗃️</span>
+                  <span class="file-name">bibliotheque.sql</span>
+                  <span class="file-type sql">sql</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/sql/films.sql" class="file-item" download>
+                  <span class="file-icon">🗃️</span>
+                  <span class="file-name">films.sql</span>
+                  <span class="file-type sql">sql</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/sql/miamiam.sql" class="file-item" download>
+                  <span class="file-icon">🗃️</span>
+                  <span class="file-name">miamiam.sql</span>
+                  <span class="file-type sql">sql</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf9">
+              <div class="folder-header" onclick="toggleFolder('sf9')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Site Web PHP</span>
+                <span class="folder-badge">(2)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/siteweb/siteweb/index.php" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">index.php</span>
+                  <span class="file-type txt">php</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/d%C3%A9veloppement/siteweb/siteweb/films.sql" class="file-item" download>
+                  <span class="file-icon">🗃️</span>
+                  <span class="file-name">films.sql</span>
+                  <span class="file-type sql">sql</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="tree-folder" id="mat3">
+              <div class="folder-header matiere-header" onclick="toggleFolder('mat3')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📁</span>
+                <span class="folder-name">Infrastructure 🌐</span>
+                <span class="folder-badge matiere-badge">17 fichiers</span>
+              </div>
+              <div class="folder-children">
+            <div class="tree-folder" id="sf10">
+              <div class="folder-header" onclick="toggleFolder('sf10')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">VLAN — Introduction & TP1 à TP5</span>
+                <span class="folder-badge">(6)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/infrastructure/intro%20tp%20vlan/B2-SISR-VLAN-Intro-Routage-InterVLAN.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Intro Routage InterVLAN.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/infrastructure/TP1%20VLAN/B2-SISR-VLAN-TP1.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-SISR-VLAN-TP1.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/infrastructure/TP2%20VLAN/B2-SISR-VLAN-TP2.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-SISR-VLAN-TP2.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/infrastructure/TP3%20VLAN/B2-SISR-VLAN-TP3.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-SISR-VLAN-TP3.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/infrastructure/TP4%20VLAN/B2-SISR-VLAN-TP4.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-SISR-VLAN-TP4.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/infrastructure/TP5%20VLAN/B2-SISR-VLAN-TP5-Synthese.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-SISR-VLAN-TP5-Synthese.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf11">
+              <div class="folder-header" onclick="toggleFolder('sf11')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Routage InterVLAN & Commutation Niv.3</span>
+                <span class="folder-badge">(3)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/infrastructure/TP00%20D%C3%A9couverte%20routage%20InterVLAN/Decouverte_InterVlan.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Decouverte_InterVlan.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/infrastructure/TP02%20RoutageVLAN-CommutNiv3/switch%20niv%203.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">switch niv 3.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/infrastructure/TP03%20-%20Incidents-RoutageInterVLAN/B2-SISR-TP03%20VLAN-Incidents-Routage.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-SISR-TP03 VLAN-Incidents-Routage.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf12">
+              <div class="folder-header" onclick="toggleFolder('sf12')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Routage IP</span>
+                <span class="folder-badge">(1)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/infrastructure/06%20Routage%20Ip%20Etud/B2-SISR-Routage-IP-Exolab-Enonce.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-SISR-Routage-IP-Exolab-Enonce.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf13">
+              <div class="folder-header" onclick="toggleFolder('sf13')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Active Directory</span>
+                <span class="folder-badge">(1)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/infrastructure/Active%20Directory%20%20TP1%20Nathan%20Manceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Active Directory TP1 Nathan Manceau.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf14">
+              <div class="folder-header" onclick="toggleFolder('sf14')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">GLPI — Gestion de parc</span>
+                <span class="folder-badge">(2)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/infrastructure/GLPI/Gestion%20de%20parc%20et%20d%27incidents%20sur%20GLPI%20N%C2%B01%20Etud.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Gestion de parc GLPI N°1.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/infrastructure/GLPI/Pr%C3%A9sentation%20ITIL%20et%20outils%20HelpDesk%20et%20Gestion%20de%20Parc.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">Présentation ITIL.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf15">
+              <div class="folder-header" onclick="toggleFolder('sf15')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Script Bash Linux</span>
+                <span class="folder-badge">(1)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/infrastructure/TP_Intro_bash_E.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">TP_Intro_bash_E.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf16">
+              <div class="folder-header" onclick="toggleFolder('sf16')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">SEO / SEA</span>
+                <span class="folder-badge">(2)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/infrastructure/SEO-SEA/SEO.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">SEO.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%201/infrastructure/SEO-SEA/Exercice%20-%20Optimisation%20r%C3%A9f%C3%A9rencement%20SEO.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Exercice Optimisation SEO.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="sf17">
+              <div class="folder-header" onclick="toggleFolder('sf17')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Architecture MVC</span>
+                <span class="folder-badge">(1)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%201/infrastructure/02%20-%20Architecture%20MVC/ressources%20TP5/Architecture%20MVC%20-%20TP5.1%20Controleur%20principal_n.manceau.odt" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Architecture MVC - TP5.1.odt</span>
+                  <span class="file-type docx">odt</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="veille-card" style="--card-color: var(--tag-ia);" data-tags="ia">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-ia">IA</span></div>
-        <div class="card-title">Wikipédia interdit officiellement l'usage des LLM pour la rédaction d'articles</div>
-        <div class="card-desc">Décision de la fondation Wikimédia face aux risques de désinformation et de dégradation de la qualité des contenus générés par IA.</div>
+    <!-- DEUXIÈME ANNÉE -->
+    <div class="year-block" id="year2">
+      <div class="year-header" onclick="toggleYear('year2')">
+        <div class="year-icon">📁</div>
+        <div>
+          <div class="year-title">Deuxième année</div>
+          <div class="year-subtitle">BTS SIO SISR · 2024 – 2025</div>
+        </div>
+        <span class="year-chevron">▶</span>
       </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/Wikipédia interdit officiellement l'usage des LLM pour la rédaction d'articles.pptx" class="card-dl" download>PowerPoint ⬇</a>
-      </div>
-    </div>
+      <div class="year-body">
+        <div class="year-inner">
+          <div class="tree">
 
-    <!-- CYBERSÉCURITÉ -->
-    <div class="veille-card" style="--card-color: var(--tag-secu);" data-tags="secu">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-secu">Cybersécurité</span></div>
-        <div class="card-title">Le Sénat américain enquête sur les risques cyber des assistants IA (DeepSeek, ChatGPT)</div>
-        <div class="card-desc">Auditions au Sénat sur les vulnérabilités et les risques de sécurité posés par les grands modèles de langage utilisés à grande échelle.</div>
-      </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/Le Sénat américain enquête sur les risques cyber des assistants IA(DeepSeek, ChatGPT).pptx" class="card-dl" download>PowerPoint ⬇</a>
-      </div>
-    </div>
+            <div class="tree-root">📂 BTS_SIO / Année_2</div>
 
-    <div class="veille-card" style="--card-color: var(--tag-secu);" data-tags="secu">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-secu">Cybersécurité</span></div>
-        <div class="card-title">Fuite de données dans le fichier national des comptes bancaires (FICOBA)</div>
-        <div class="card-desc">Analyse d'une compromission des données bancaires françaises et des conséquences en matière de protection des données personnelles.</div>
-      </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/Fuite de données dans le fichier national des comptes bancaires (FICOBA).pptx" class="card-dl" download>PowerPoint ⬇</a>
-      </div>
-    </div>
+            <div class="tree-folder" id="a2mat1">
+              <div class="folder-header matiere-header" onclick="toggleFolder('a2mat1')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📁</span>
+                <span class="folder-name">B1 📋</span>
+                <span class="folder-badge matiere-badge">8 fichiers</span>
+              </div>
+              <div class="folder-children">
+            <div class="tree-folder" id="a2sf1">
+              <div class="folder-header" onclick="toggleFolder('a2sf1')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">B1 — Documents</span>
+                <span class="folder-badge">(8)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/B1/B1-S3-C02%20Valeur%20Actuel%20Actif_nmanceau.odt" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B1-S3-C02 Valeur Actuel Actif_nmanceau.odt</span>
+                  <span class="file-type odt">odt</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B1/Gestion%20de%20parc%20et%20d%27incidents%20sur%20GLPI%20N%C2%B02%20Etu.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Gestion de parc et incidents GLPI N°2.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B1/Gestion%20de%20parc%20et%20d%27incidents%20sur%20GLPI%2020%20NathanManceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Gestion de parc et incidents GLPI 20 NathanManceau.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B1/SYNAPSINFO%20PGI%20B1%20SIO2%20D2%20M2.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">SYNAPSINFO PGI B1 SIO2 D2 M2.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B1/SYNAPSINFO%20PGI%20B1%20SIO2%20D2%20M2%20suppl.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">SYNAPSINFO PGI B1 SIO2 D2 M2 suppl.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B1/SYNAPSINFO%20PGI%20B1%20SIO2%20D3-JulienNathanM.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">SYNAPSINFO PGI B1 SIO2 D3-JulienNathanM.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B1/nmanceau_srvErp.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">nmanceau_srvErp.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B1/synapsinfo_2026-03-16_09-05-38.zip" class="file-item" download>
+                  <span class="file-icon">📦</span>
+                  <span class="file-name">synapsinfo_2026-03-16.zip</span>
+                  <span class="file-type zip">zip</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="tree-folder" id="a2mat2">
+              <div class="folder-header matiere-header" onclick="toggleFolder('a2mat2')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📁</span>
+                <span class="folder-name">B2 🌐</span>
+                <span class="folder-badge matiere-badge">32 fichiers</span>
+              </div>
+              <div class="folder-children">
+            <div class="tree-folder" id="a2sf2">
+              <div class="folder-header" onclick="toggleFolder('a2sf2')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Active Directory</span>
+                <span class="folder-badge">(7)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/B2/AD/B2-AD-PowerShell-TP06.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-AD-PowerShell-TP06.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/AD/B2-TP05%20DHCP%20sur%20un%20serveur%20Windowsnmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-TP05 DHCP sur serveur Windows.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/AD/B2-TP07-Lecteur%20r%C3%A9seau_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-TP07-Lecteur réseau.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/AD/B2-TP08%20DecouverteDocker.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-TP08 DecouverteDocker.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/AD/B2-TP09%20ReseauDocker_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-TP09 ReseauDocker.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/AD/Script%20Powershell%201.txt" class="file-item" download>
+                  <span class="file-icon">📃</span>
+                  <span class="file-name">Script Powershell 1.txt</span>
+                  <span class="file-type txt">txt</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/AD/%C3%89valuation_Ad_DNS_DHCP_GPO.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Évaluation AD DNS DHCP GPO.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="a2sf3">
+              <div class="folder-header" onclick="toggleFolder('a2sf3')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Chiffrement</span>
+                <span class="folder-badge">(6)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/B2/Chiffrement/B3_Certificat_TP2_SiteSecurise.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_Certificat_TP2_SiteSecurise.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/Chiffrement/B3_Chiffrement_TP1_IntroSymetrique.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_Chiffrement_TP1_IntroSymetrique.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/Chiffrement/B3_Chiffrement_TP1_IntroSymetrique_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_Chiffrement_TP1_nmanceau.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/Chiffrement/B3_Chiffrement_TP2_AsymetriqueConfid_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_Chiffrement_TP2_AsymetriqueConfid.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/Chiffrement/B3_Chiffrement_TP3_Hachage.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_Chiffrement_TP3_Hachage.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/Chiffrement/B3_Chiffrement_TP4_Signature_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_Chiffrement_TP4_Signature.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="a2sf4">
+              <div class="folder-header" onclick="toggleFolder('a2sf4')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">DMZ</span>
+                <span class="folder-badge">(4)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/B2/DMZ/Mise%20en%20place%20du%20serveur%20ZABBIX_Etudiant.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Mise en place serveur ZABBIX.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/DMZ/R%C3%A9plication%20BD_Etudiant_2026_P1_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Réplication BD P1.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/DMZ/R%C3%A9plication%20BD_Etudiant_2026_P2.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Réplication BD P2.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/DMZ/R%C3%A9plication-infra.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Réplication-infra.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="a2sf5">
+              <div class="folder-header" onclick="toggleFolder('a2sf5')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Docker</span>
+                <span class="folder-badge">(4)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/B2/Docker/B2-TP10-%20Docker%20et%20Site%20dynamique_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-TP10 Docker et Site dynamique.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/Docker/B2-TP11%20Docker%20compose_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-TP11 Docker compose.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/Docker/B2-TP12-Docker_Swarm_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-TP12 Docker Swarm.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/Docker/nmanceau_docker_%C3%A9valuation.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">nmanceau_docker_évaluation.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="a2sf6">
+              <div class="folder-header" onclick="toggleFolder('a2sf6')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Supervision</span>
+                <span class="folder-badge">(2)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/B2/Supervision/FICHE%20MISSION%20Infra%20GSB%20Docker%20GLPI%20OCS%20%281%29.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">FICHE MISSION Infra GSB Docker GLPI OCS.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/Supervision/Mise%20en%20place%20du%20serveur%20ZABBIX_Etudiant.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">Mise en place serveur ZABBIX.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="a2sf7">
+              <div class="folder-header" onclick="toggleFolder('a2sf7')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">VPN</span>
+                <span class="folder-badge">(2)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/B2/VPN/B3-TP13_OpenVPN_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3-TP13_OpenVPN.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/VPN/B3_VPN_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_VPN.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="a2sf8">
+              <div class="folder-header" onclick="toggleFolder('a2sf8')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Parefeu</span>
+                <span class="folder-badge">(6)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/B2/parefeu/B3_SIO2SISR_TP14_SNS_Partie01_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_SNS_TP14_Partie01.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/parefeu/B3_SIO2SISR_TP14_SNS_Partie02_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_SNS_TP14_Partie02.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/parefeu/B3_SIO2SISR_TP14_SNS_Partie03_nmanceau.docx.odt" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_SNS_TP14_Partie03.odt</span>
+                  <span class="file-type odt">odt</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/parefeu/B3_SIO2SISR_TP14_SNS_Partie04_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_SNS_TP14_Partie04.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/parefeu/B3_SIO2SISR_TP14_SNS_Partie05_nmanceau.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B3_SNS_TP14_Partie05.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/B2/parefeu/liste%20de%20r%C3%A8gle%20%C3%A0%20r%C3%A9aliser.txt" class="file-item" download>
+                  <span class="file-icon">📃</span>
+                  <span class="file-name">liste de règles à réaliser.txt</span>
+                  <span class="file-type txt">txt</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+            <div class="tree-folder" id="a2sf9">
+              <div class="folder-header" onclick="toggleFolder('a2sf9')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Équipement réseau</span>
+                <span class="folder-badge">(1)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/B2/%C3%A9quipement%20r%C3%A9seau/B2-Rappels%20Vlans%20et%20Routage.docx" class="file-item" download>
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">B2-Rappels Vlans et Routage.docx</span>
+                  <span class="file-type docx">docx</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="tree-folder" id="a2mat3">
+              <div class="folder-header matiere-header" onclick="toggleFolder('a2mat3')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📁</span>
+                <span class="folder-name">Documentation 📚</span>
+                <span class="folder-badge matiere-badge">3 fichiers</span>
+              </div>
+              <div class="folder-children">
+            <div class="tree-folder" id="a2sf10">
+              <div class="folder-header" onclick="toggleFolder('a2sf10')">
+                <span class="folder-arrow">▶</span>
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">Fiches techniques</span>
+                <span class="folder-badge">(3)</span>
+              </div>
+              <div class="folder-children">
+                <a href="formation/ann%C3%A9e%202/documentation/FT_Config_Base_Routeur_Cisco%20%281%29.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">FT_Config_Base_Routeur_Cisco.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/documentation/FT_Config_NAT_Mapping_DMZ.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">FT_Config_NAT_Mapping_DMZ.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+                <a href="formation/ann%C3%A9e%202/documentation/FT_Config_NAT_Routage%20%281%29.pdf" class="file-item" download>
+                  <span class="file-icon">📄</span>
+                  <span class="file-name">FT_Config_NAT_Routage.pdf</span>
+                  <span class="file-type pdf">pdf</span>
+                  <span class="file-dl">⬇</span>
+                </a>
+              </div>
+            </div>
+              </div>
+            </div>
 
-    <div class="veille-card" style="--card-color: var(--tag-secu);" data-tags="secu">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-secu">Cybersécurité</span></div>
-        <div class="card-title">Google Cloud lance le chiffrement post-quantique pour sa gestion de clés</div>
-        <div class="card-desc">Déploiement d'algorithmes résistants aux ordinateurs quantiques dans l'infrastructure de gestion de clés de Google Cloud.</div>
-      </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/Google Cloud lance le chiffrement post-quantique pour sa gestion de clés.pptx" class="card-dl" download>PowerPoint ⬇</a>
-      </div>
-    </div>
-
-    <!-- DÉVELOPPEMENT -->
-    <div class="veille-card" style="--card-color: var(--tag-dev);" data-tags="dev">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-dev">Développement</span></div>
-        <div class="card-title">Le développeur 2026 est un architecte système, plus qu'un simple producteur de code</div>
-        <div class="card-desc">Évolution du rôle du développeur face à l'automatisation par l'IA — vers une posture plus stratégique centrée sur l'architecture et la conception.</div>
-      </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/Le développeur 2026 est un architecte système, plus qu'un simple producteur de code.pptx" class="card-dl" download>PowerPoint ⬇</a>
-      </div>
-    </div>
-
-    <!-- RÉSEAUX -->
-    <div class="veille-card" style="--card-color: var(--tag-réseau);" data-tags="réseau">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-réseau">Réseaux</span></div>
-        <div class="card-title">Attaque du plus proche voisin — une nouvelle menace pour les réseaux Wi-Fi d'entreprise</div>
-        <div class="card-desc">Technique d'attaque exploitant la proximité physique des réseaux sans fil pour contourner les protections périmètriques des entreprises.</div>
-      </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/Attaque du plus proche voisin est une nouvelle menace pour les réseaux Wi-Fi d'entreprise.pptx" class="card-dl" download>PowerPoint ⬇</a>
-      </div>
-    </div>
-
-    <div class="veille-card" style="--card-color: var(--tag-réseau);" data-tags="réseau">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-réseau">Réseaux</span></div>
-        <div class="card-title">WireGuard déploie son module dans le noyau Linux 6.13</div>
-        <div class="card-desc">Intégration native de WireGuard dans le noyau Linux — impacts sur les performances VPN et la sécurité des infrastructures réseau.</div>
-      </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/WireGuard déploie son module dans le noyau Linux 6.13.pptx" class="card-dl" download>PowerPoint ⬇</a>
-      </div>
-    </div>
-
-    <!-- SYSTÈMES -->
-    <div class="veille-card" style="--card-color: var(--tag-sys);" data-tags="sys">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-sys">Systèmes</span></div>
-        <div class="card-title">Zabbix 7.2 améliore la détection automatique des équipements réseau</div>
-        <div class="card-desc">Nouvelle version de Zabbix avec des capacités de découverte automatique renforcées pour la supervision des infrastructures complexes.</div>
-      </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/Zabbix 7.2 améliore la détection automatique des équipements réseau.pptx" class="card-dl" download>PowerPoint ⬇</a>
-      </div>
-    </div>
-
-    <div class="veille-card" style="--card-color: var(--tag-sys);" data-tags="sys">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-sys">Systèmes</span></div>
-        <div class="card-title">Prometheus 3.0 arrive avec une meilleure gestion des séries temporelles</div>
-        <div class="card-desc">Mise à jour majeure de Prometheus avec des optimisations sur le stockage et le traitement des métriques à grande échelle.</div>
-      </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/Prometheus 3.0 arrive avec une meilleure gestion des séries temporelles.pptx" class="card-dl" download>PowerPoint ⬇</a>
-      </div>
-    </div>
-
-    <div class="veille-card" style="--card-color: var(--tag-sys);" data-tags="sys">
-      <div class="card-top">
-        <div class="card-tags"><span class="card-tag tag-sys">Systèmes</span></div>
-        <div class="card-title">PowerShell 7.5 généralise l'intégration de l'IA via les cmdlets dédiées</div>
-        <div class="card-desc">Nouvelles cmdlets PowerShell orientées IA pour l'automatisation intelligente des tâches d'administration système et réseau.</div>
-      </div>
-      <div class="card-bottom">
-        <span class="card-date">2025 – 2026</span>
-        <a href="veille/PowerShell 7.5 généralise l'intégration de l'IA via les cmdlets dédiées.pptx" class="card-dl" download>PowerPoint ⬇</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -489,20 +1337,11 @@
 </main>
 
 <script>
-  function filterCards(tag, btn) {
-    // Update active button
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    // Show/hide cards
-    document.querySelectorAll('.veille-card').forEach(card => {
-      if (tag === 'all') {
-        card.classList.remove('hidden');
-      } else {
-        const tags = card.dataset.tags || '';
-        tags.includes(tag) ? card.classList.remove('hidden') : card.classList.add('hidden');
-      }
-    });
+  function toggleYear(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+  function toggleFolder(id) {
+    document.getElementById(id).classList.toggle('open');
   }
 </script>
 
