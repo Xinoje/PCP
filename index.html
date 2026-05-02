@@ -16,9 +16,9 @@
     --docker-border: rgba(13,183,237,0.18);
     --white:         #ffffff;
   }
-
+ 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
   body {
     font-family: 'IBM Plex Sans', sans-serif;
     background: var(--docker-dark);
@@ -27,7 +27,7 @@
     display: flex;
     overflow-x: hidden;
   }
-
+ 
   /* ── BACKGROUND grid ── */
   body::before {
     content: '';
@@ -40,7 +40,7 @@
     pointer-events: none;
     z-index: 0;
   }
-
+ 
   /* glow blob */
   body::after {
     content: '';
@@ -53,7 +53,7 @@
     pointer-events: none;
     z-index: 0;
   }
-
+ 
   /* ── SIDEBAR ── */
   .sidebar {
     position: fixed;
@@ -68,20 +68,20 @@
     z-index: 10;
     animation: slideInLeft 0.6s ease both;
   }
-
+ 
   .sidebar-logo {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 48px;
   }
-
+ 
   /* Docker whale icon (SVG inline) */
   .whale-icon {
     width: 36px; height: 36px;
     flex-shrink: 0;
   }
-
+ 
   .sidebar-brand {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
@@ -90,7 +90,7 @@
     text-transform: uppercase;
     line-height: 1.3;
   }
-
+ 
   .nav-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
@@ -99,14 +99,14 @@
     letter-spacing: 0.15em;
     margin-bottom: 16px;
   }
-
+ 
   .nav-buttons {
     display: flex;
     flex-direction: column;
     gap: 10px;
     flex: 1;
   }
-
+ 
   .nav-btn {
     display: flex;
     align-items: center;
@@ -125,7 +125,7 @@
     position: relative;
     overflow: hidden;
   }
-
+ 
   .nav-btn::before {
     content: '';
     position: absolute;
@@ -136,21 +136,21 @@
     transition: transform 0.22s ease;
     border-radius: 0 2px 2px 0;
   }
-
+ 
   .nav-btn:hover {
     background: rgba(13,183,237,0.12);
     border-color: rgba(13,183,237,0.45);
     color: var(--white);
     transform: translateX(4px);
   }
-
+ 
   .nav-btn:hover::before { transform: scaleY(1); }
-
+ 
   .nav-btn .btn-icon {
     font-size: 18px;
     flex-shrink: 0;
   }
-
+ 
   .nav-btn .btn-tag {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 9px;
@@ -158,14 +158,14 @@
     margin-left: auto;
     opacity: 0.7;
   }
-
+ 
   /* CV section */
   .cv-section {
     margin-top: auto;
     padding-top: 28px;
     border-top: 1px solid var(--docker-border);
   }
-
+ 
   .cv-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
@@ -174,7 +174,7 @@
     letter-spacing: 0.15em;
     margin-bottom: 14px;
   }
-
+ 
   .cv-card {
     background: rgba(13,183,237,0.07);
     border: 1px solid rgba(13,183,237,0.3);
@@ -184,13 +184,13 @@
     flex-direction: column;
     gap: 12px;
   }
-
+ 
   .cv-file {
     display: flex;
     align-items: center;
     gap: 10px;
   }
-
+ 
   .cv-file-icon {
     width: 36px; height: 36px;
     background: rgba(13,183,237,0.15);
@@ -199,7 +199,7 @@
     font-size: 16px;
     flex-shrink: 0;
   }
-
+ 
   .cv-file-info { flex: 1; }
   .cv-file-name {
     font-size: 0.78rem;
@@ -211,7 +211,7 @@
     font-size: 10px;
     color: var(--docker-grey);
   }
-
+ 
   .cv-download-btn {
     display: flex;
     align-items: center;
@@ -231,13 +231,13 @@
     text-decoration: none;
     transition: all 0.2s ease;
   }
-
+ 
   .cv-download-btn:hover {
     background: #30ccf5;
     transform: translateY(-1px);
     box-shadow: 0 6px 20px rgba(13,183,237,0.35);
   }
-
+ 
   /* ── MAIN ── */
   .main {
     margin-left: 280px;
@@ -251,13 +251,13 @@
     position: relative;
     z-index: 1;
   }
-
+ 
   .hero {
     max-width: 680px;
     width: 100%;
     animation: fadeUp 0.7s 0.2s ease both;
   }
-
+ 
   .hero-chip {
     display: inline-flex;
     align-items: center;
@@ -268,21 +268,21 @@
     padding: 5px 14px 5px 8px;
     margin-bottom: 32px;
   }
-
+ 
   .chip-dot {
     width: 8px; height: 8px;
     border-radius: 50%;
     background: var(--docker-blue);
     animation: pulse 2s ease infinite;
   }
-
+ 
   .chip-text {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
     color: var(--docker-blue);
     letter-spacing: 0.05em;
   }
-
+ 
   .hero-name {
     font-size: clamp(2.4rem, 4vw, 3.8rem);
     font-weight: 700;
@@ -291,11 +291,11 @@
     margin-bottom: 12px;
     color: var(--white);
   }
-
+ 
   .hero-name span {
     color: var(--docker-blue);
   }
-
+ 
   .hero-title {
     font-size: clamp(1rem, 2vw, 1.35rem);
     font-weight: 300;
@@ -304,12 +304,12 @@
     margin-bottom: 40px;
     line-height: 1.5;
   }
-
+ 
   .hero-title strong {
     color: var(--docker-light);
     font-weight: 600;
   }
-
+ 
   /* Container cards row */
   .container-row {
     display: flex;
@@ -317,7 +317,7 @@
     flex-wrap: wrap;
     margin-top: 8px;
   }
-
+ 
   .container-card {
     background: rgba(15,42,68,0.7);
     border: 1px solid var(--docker-border);
@@ -331,19 +331,19 @@
     color: var(--docker-grey);
     transition: all 0.2s ease;
   }
-
+ 
   .container-card:hover {
     border-color: rgba(13,183,237,0.4);
     color: var(--docker-light);
   }
-
+ 
   .container-card .status-dot {
     width: 6px; height: 6px;
     border-radius: 50%;
     background: #3ddc84;
     flex-shrink: 0;
   }
-
+ 
   /* decorative docker stack */
   .docker-stack {
     position: absolute;
@@ -357,7 +357,7 @@
     pointer-events: none;
     animation: fadeUp 1s 0.5s ease both;
   }
-
+ 
   .stack-block {
     width: 140px;
     height: 28px;
@@ -365,14 +365,14 @@
     border-radius: 4px;
     background: rgba(13,183,237,0.06);
   }
-
+ 
   .stack-block:nth-child(2) { width: 160px; }
   .stack-block:nth-child(3) { width: 120px; }
   .stack-block:nth-child(4) { width: 150px; }
-
+ 
   /* ── BIO ── */
   .bio { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
-
+ 
   .bio-block {
     display: flex; align-items: flex-start; gap: 14px;
     background: rgba(15,42,68,0.6);
@@ -381,45 +381,45 @@
     padding: 16px 20px;
     transition: border-color 0.2s ease;
   }
-
+ 
   .bio-block:hover { border-color: rgba(13,183,237,0.35); }
   .bio-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-
+ 
   .bio-text { font-size: 0.83rem; color: var(--docker-grey); line-height: 1.65; }
   .bio-text strong { color: var(--docker-light); font-weight: 600; }
-
+ 
   .bio-heading {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px; color: var(--docker-blue);
     text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px;
   }
-
+ 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
+ 
   @keyframes slideInLeft {
     from { opacity: 0; transform: translateX(-30px); }
     to   { opacity: 1; transform: translateX(0); }
   }
-
+ 
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
     50%       { opacity: 0.5; transform: scale(0.85); }
   }
-
+ 
   
     body { flex-direction: column; }
     .main { margin-left: 0; padding: 40px 24px; }
     .docker-stack { display: none; }
   }
-
+ 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     body { flex-direction: column; }
-
+ 
     .sidebar {
       position: relative;
       width: 100%;
@@ -428,57 +428,57 @@
       border-bottom: 1px solid var(--docker-border);
       padding: 20px 20px 16px;
     }
-
+ 
     .sidebar-logo { margin-bottom: 16px; }
-
+ 
     .nav-label { margin-bottom: 10px; }
-
+ 
     .nav-buttons {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       flex: none;
     }
-
+ 
     .nav-btn { padding: 10px 12px; font-size: 0.82rem; }
-
+ 
     .cv-section {
       margin-top: 16px;
       padding-top: 16px;
     }
-
+ 
     .cv-card { flex-direction: row; align-items: center; gap: 10px; padding: 12px; }
     .cv-file { flex: 1; }
     .cv-download-btn { white-space: nowrap; padding: 8px 12px; }
-
+ 
     .main {
       margin-left: 0 !important;
       max-width: 100% !important;
       padding: 28px 20px 48px;
       min-height: auto;
     }
-
+ 
     .page-header { margin-bottom: 28px; }
     .page-title { font-size: 1.4rem; }
-
+ 
     .two-col { grid-template-columns: 1fr; }
-
+ 
     .hero-name { font-size: 2rem; }
     .docker-stack { display: none; }
-
+ 
     .productions-grid { grid-template-columns: 1fr; }
-
+ 
     .table-wrap { font-size: 0.75rem; }
     th, td { padding: 8px 10px; }
   }
-
+ 
 </style>
 </head>
 <body>
-
+ 
 <!-- ── SIDEBAR ── -->
 <aside class="sidebar">
-
+ 
   <div class="sidebar-logo" style="cursor:pointer;" onclick="window.location.href='index.html'">
     <!-- Docker whale SVG -->
     <svg class="whale-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -491,7 +491,7 @@
     </svg>
     <div class="sidebar-brand">Nathan<br>Manceau</div>
   </div>
-
+ 
   <div class="nav-label">Navigation</div>
   <nav class="nav-buttons">
     <a href="stage1.html" class="nav-btn">
@@ -516,11 +516,11 @@
     </a>
     <a href="documents.html" class="nav-btn">
       <span class="btn-icon">📁</span>
-      Document
+      Documents
       <span class="btn-tag">→</span>
     </a>
   </nav>
-
+ 
   <!-- CV -->
   <div class="cv-section">
     <div class="cv-label">Curriculum Vitae</div>
@@ -537,12 +537,12 @@
       </a>
     </div>
   </div>
-
+ 
 </aside>
-
+ 
 <!-- ── MAIN ── -->
 <main class="main">
-
+ 
   <!-- Decorative stack -->
   <div class="docker-stack">
     <div class="stack-block"></div>
@@ -550,20 +550,20 @@
     <div class="stack-block"></div>
     <div class="stack-block"></div>
   </div>
-
+ 
   <div class="hero">
     <div class="hero-chip">
       <div class="chip-dot"></div>
       <span class="chip-text">Portfolio · En ligne</span>
     </div>
-
+ 
     <h2 class="hero-name">Nathan<br><span>Manceau</span></h2>
-
+ 
     <p class="hero-title">
       <strong>Bienvenue sur mon Portefeuille de Compétences</strong><br>
       Étudiant passionné par l'informatique et les technologies modernes.
     </p>
-
+ 
     <div class="bio">
       <div class="bio-block">
         <div class="bio-icon">🎓</div>
@@ -596,8 +596,8 @@
       </div>
     </div>
   </div>
-
+ 
 </main>
-
+ 
 </body>
 </html>
