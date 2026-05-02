@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nathan Manceau — Document</title>
+<title>Nathan Manceau — Documents</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -181,6 +181,49 @@
   }
   .doc-dl:hover { background: rgba(13,183,237,0.18); border-color: rgba(13,183,237,0.5); color: var(--white); }
 
+  /* ── DROPDOWNS ── */
+  .doc-dropdown {
+    border: 1px solid var(--docker-border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(13,183,237,0.02);
+  }
+
+  .doc-dropdown-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 18px;
+    cursor: pointer; user-select: none;
+    transition: background 0.2s;
+  }
+
+  .doc-dropdown-header:hover { background: rgba(13,183,237,0.08); }
+  .doc-dropdown-header.sub { padding: 10px 18px; background: rgba(13,183,237,0.04); }
+
+  .dd-arrow {
+    font-size: 10px; color: var(--docker-blue);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .doc-dropdown.open > .doc-dropdown-header .dd-arrow { transform: rotate(90deg); }
+
+  .dd-title { font-size: 0.88rem; font-weight: 600; color: var(--docker-light); flex: 1; }
+  .dd-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--docker-grey); }
+
+  .doc-dropdown-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 0 12px;
+  }
+
+  .doc-dropdown.open > .doc-dropdown-body {
+    max-height: 1200px;
+    padding: 8px 12px;
+  }
+
+  .doc-item.sub-item { margin: 0; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     body { flex-direction: column; }
@@ -222,7 +265,7 @@
     <a href="stage2.html" class="nav-btn"><span class="btn-icon">🏗️</span> Stage 2 <span class="btn-tag">→</span></a>
     <a href="formation.html" class="nav-btn"><span class="btn-icon">🎓</span> Formation <span class="btn-tag">→</span></a>
     <a href="veille.html" class="nav-btn"><span class="btn-icon">📡</span> Veille <span class="btn-tag">→</span></a>
-    <a href="documents.html" class="nav-btn active"><span class="btn-icon">📁</span> Documents <span class="btn-tag">→</span></a>
+    <a href="#" class="nav-btn active"><span class="btn-icon">📁</span> Documents <span class="btn-tag">→</span></a>
   </nav>
 
   <div class="cv-section">
@@ -259,7 +302,7 @@
       <div class="doc-section-head">
         <span class="section-num">01</span>
         <span class="section-title">Dossier E6 — Présentation BTS</span>
-        <span class="section-count">1 document</span>
+        <span class="section-count">1 document + productions</span>
       </div>
       <div class="doc-list">
         <div class="doc-item">
@@ -271,6 +314,57 @@
           <span class="doc-item-ext ext-pdf">pdf</span>
           <a href="#" class="doc-dl" download>Télécharger ⬇</a>
         </div>
+
+        <!-- Productions -->
+        <div class="doc-dropdown" id="dd-productions">
+          <div class="doc-dropdown-header" onclick="toggleDd('dd-productions')">
+            <span class="dd-arrow">▶</span>
+            <span class="dd-title">Productions</span>
+            <span class="dd-count">AP 4.1 · AP 4.2</span>
+          </div>
+          <div class="doc-dropdown-body">
+
+            <!-- AP 4.1 -->
+            <div class="doc-dropdown sub" id="dd-ap41">
+              <div class="doc-dropdown-header sub" onclick="toggleDd('dd-ap41')">
+                <span class="dd-arrow">▶</span>
+                <span class="dd-title">AP 4.1</span>
+              </div>
+              <div class="doc-dropdown-body">
+                <div class="doc-item sub-item">
+                  <div class="doc-item-icon">📝</div>
+                  <div class="doc-item-info">
+                    <div class="doc-item-name">✏️ Production AP 4.1</div>
+                    <div class="doc-item-desc">À compléter</div>
+                  </div>
+                  <span class="doc-item-ext ext-docx">docx</span>
+                  <a href="#" class="doc-dl" download>Télécharger ⬇</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- AP 4.2 -->
+            <div class="doc-dropdown sub" id="dd-ap42">
+              <div class="doc-dropdown-header sub" onclick="toggleDd('dd-ap42')">
+                <span class="dd-arrow">▶</span>
+                <span class="dd-title">AP 4.2</span>
+              </div>
+              <div class="doc-dropdown-body">
+                <div class="doc-item sub-item">
+                  <div class="doc-item-icon">📝</div>
+                  <div class="doc-item-info">
+                    <div class="doc-item-name">✏️ Production AP 4.2</div>
+                    <div class="doc-item-desc">À compléter</div>
+                  </div>
+                  <span class="doc-item-ext ext-docx">docx</span>
+                  <a href="#" class="doc-dl" download>Télécharger ⬇</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -333,77 +427,89 @@
       <div class="doc-list">
 
         <!-- Stage 1 -->
-        <div class="doc-item">
-          <div class="doc-item-icon">📝</div>
-          <div class="doc-item-info">
-            <div class="doc-item-name">CRA — Selenium Grid</div>
-            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
+        <div class="doc-dropdown" id="dd-stage1">
+          <div class="doc-dropdown-header" onclick="toggleDd('dd-stage1')">
+            <span class="dd-arrow">▶</span>
+            <span class="dd-title">Stage 1 — Mairie de Fougères</span>
+            <span class="dd-count">6 CRA</span>
           </div>
-          <span class="doc-item-ext ext-docx">docx</span>
-          <a href="Stage 1/RA_Selenium_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+          <div class="doc-dropdown-body">
+            <div class="doc-item sub-item">
+              <div class="doc-item-icon">📝</div>
+              <div class="doc-item-info">
+                <div class="doc-item-name">CRA — Selenium Grid</div>
+              </div>
+              <span class="doc-item-ext ext-docx">docx</span>
+              <a href="Stage 1/RA_Selenium_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+            </div>
+            <div class="doc-item sub-item">
+              <div class="doc-item-icon">📝</div>
+              <div class="doc-item-info">
+                <div class="doc-item-name">CRA — PowerShell fond d'écran dynamique</div>
+              </div>
+              <span class="doc-item-ext ext-docx">docx</span>
+              <a href="Stage 1/RA_ Affichage_de_données_système_sur_des_serveurs_via_PowerShell_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+            </div>
+            <div class="doc-item sub-item">
+              <div class="doc-item-icon">📝</div>
+              <div class="doc-item-info">
+                <div class="doc-item-name">CRA — Image FOG</div>
+              </div>
+              <span class="doc-item-ext ext-docx">docx</span>
+              <a href="Stage 1/RA_Image Fog_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+            </div>
+            <div class="doc-item sub-item">
+              <div class="doc-item-icon">📝</div>
+              <div class="doc-item-info">
+                <div class="doc-item-name">CRA — Interphone Castel</div>
+              </div>
+              <span class="doc-item-ext ext-docx">docx</span>
+              <a href="Stage 1/RA_interphone_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+            </div>
+            <div class="doc-item sub-item">
+              <div class="doc-item-icon">📝</div>
+              <div class="doc-item-info">
+                <div class="doc-item-name">CRA — PowerShell planificateur</div>
+              </div>
+              <span class="doc-item-ext ext-docx">docx</span>
+              <a href="Stage 1/RA_Powershell_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+            </div>
+            <div class="doc-item sub-item">
+              <div class="doc-item-icon">📝</div>
+              <div class="doc-item-info">
+                <div class="doc-item-name">CRA — Zabbix</div>
+              </div>
+              <span class="doc-item-ext ext-docx">docx</span>
+              <a href="Stage 1/RA_Zabbix_ManceauNathan1.docx" class="doc-dl" download>Télécharger ⬇</a>
+            </div>
+          </div>
         </div>
-        <div class="doc-item">
-          <div class="doc-item-icon">📝</div>
-          <div class="doc-item-info">
-            <div class="doc-item-name">CRA — PowerShell fond d'écran dynamique</div>
-            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
+
+        <!-- Stage 2 -->
+        <div class="doc-dropdown" id="dd-stage2">
+          <div class="doc-dropdown-header" onclick="toggleDd('dd-stage2')">
+            <span class="dd-arrow">▶</span>
+            <span class="dd-title">Stage 2 — Fougères Agglomération</span>
+            <span class="dd-count">2 CRA</span>
           </div>
-          <span class="doc-item-ext ext-docx">docx</span>
-          <a href="Stage 1/RA_ Affichage_de_données_système_sur_des_serveurs_via_PowerShell_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
-        </div>
-        <div class="doc-item">
-          <div class="doc-item-icon">📝</div>
-          <div class="doc-item-info">
-            <div class="doc-item-name">CRA — Image FOG</div>
-            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
+          <div class="doc-dropdown-body">
+            <div class="doc-item sub-item">
+              <div class="doc-item-icon">📝</div>
+              <div class="doc-item-info">
+                <div class="doc-item-name">CRA — WireGuard</div>
+              </div>
+              <span class="doc-item-ext ext-docx">docx</span>
+              <a href="Stage 2/wireguard.docx" class="doc-dl" download>Télécharger ⬇</a>
+            </div>
+            <div class="doc-item sub-item">
+              <div class="doc-item-icon">📝</div>
+              <div class="doc-item-info">
+                <div class="doc-item-name">CRA — Prometheus & Grafana</div>
+              </div>
+              <span class="doc-item-ext ext-docx">docx</span>
+              <a href="Stage 2/RA_Prometheus_NathanManceau.docx" class="doc-dl" download>Télécharger ⬇</a>
+            </div>
           </div>
-          <span class="doc-item-ext ext-docx">docx</span>
-          <a href="Stage 1/RA_Image Fog_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
-        </div>
-        <div class="doc-item">
-          <div class="doc-item-icon">📝</div>
-          <div class="doc-item-info">
-            <div class="doc-item-name">CRA — Interphone Castel</div>
-            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
-          </div>
-          <span class="doc-item-ext ext-docx">docx</span>
-          <a href="Stage 1/RA_interphone_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
-        </div>
-        <div class="doc-item">
-          <div class="doc-item-icon">📝</div>
-          <div class="doc-item-info">
-            <div class="doc-item-name">CRA — PowerShell planificateur</div>
-            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
-          </div>
-          <span class="doc-item-ext ext-docx">docx</span>
-          <a href="Stage 1/RA_Powershell_Nathan Manceau.docx" class="doc-dl" download>Télécharger ⬇</a>
-        </div>
-        <div class="doc-item">
-          <div class="doc-item-icon">📝</div>
-          <div class="doc-item-info">
-            <div class="doc-item-name">CRA — Zabbix</div>
-            <div class="doc-item-desc">Stage 1 · Mairie de Fougères</div>
-          </div>
-          <span class="doc-item-ext ext-docx">docx</span>
-          <a href="Stage 1/RA_Zabbix_ManceauNathan1.docx" class="doc-dl" download>Télécharger ⬇</a>
-        </div>
-        <div class="doc-item">
-          <div class="doc-item-icon">📝</div>
-          <div class="doc-item-info">
-            <div class="doc-item-name">CRA — WireGuard</div>
-            <div class="doc-item-desc">Stage 2 · Fougères Agglomération</div>
-          </div>
-          <span class="doc-item-ext ext-docx">docx</span>
-          <a href="Stage 2/wireguard.docx" class="doc-dl" download>Télécharger ⬇</a>
-        </div>
-        <div class="doc-item">
-          <div class="doc-item-icon">📝</div>
-          <div class="doc-item-info">
-            <div class="doc-item-name">CRA — Prometheus & Grafana</div>
-            <div class="doc-item-desc">Stage 2 · Fougères Agglomération</div>
-          </div>
-          <span class="doc-item-ext ext-docx">docx</span>
-          <a href="Stage 2/RA_Prometheus_NathanManceau.docx" class="doc-dl" download>Télécharger ⬇</a>
         </div>
 
       </div>
@@ -411,6 +517,13 @@
 
   </div>
 </main>
+
+<script>
+  function toggleDd(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+</script>
 
 </body>
 </html>
